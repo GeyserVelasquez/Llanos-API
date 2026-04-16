@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('embrion_batches', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->string('name');
-            $table->foreignId('herd_id')->constrained('herds');
+            $table->string('name')->nullable();
+            $table->dateTime('date')->useCurrent();
             $table->timestamps();
+            $table->foreignId('mother_id')->constrained('livestock');
+            $table->foreignId('father_id')->nullable()->constrained('livestock');
+            $table->foreignId('technique_id')->constrained('techniques');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('embrion_batches');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('abort', function (Blueprint $table) {
+        Schema::create('aborts', function (Blueprint $table) {
             $table->id();
 
             $table->date('date');
@@ -21,8 +21,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('mother_history_id')->references('id')->on('clinic_history');
-            $table->foreign('abort_type_id')->references('id')->on('abort_type');
+            $table->foreign('mother_history_id')->references('id')->on('clinic_histories');
+            $table->foreign('abort_type_id')->references('id')->on('abort_types');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('abort');
+        Schema::dropIfExists('aborts');
     }
 };

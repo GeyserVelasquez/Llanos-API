@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clinic_history_diagnostic', function (Blueprint $table) {
+        Schema::create('clinic_history_diagnostics', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('clinic_history_id');
             $table->unsignedBigInteger('clinic_diagnostic_id');
             $table->timestamps();
 
-            $table->foreign('clinic_history_id')->references('id')->on('clinic_history');
-            $table->foreign('clinic_diagnostic_id')->references('id')->on('clinic_diagnostic');
+            $table->foreign('clinic_history_id')->references('id')->on('clinic_histories');
+            $table->foreign('clinic_diagnostic_id')->references('id')->on('clinic_diagnostics');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clinic_history_diagnostic');
+        Schema::dropIfExists('clinic_history_diagnostics');
     }
 };

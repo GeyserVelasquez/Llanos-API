@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('female_id');
             $table->unsignedBigInteger('semen_batch_id')->nullable();
@@ -22,9 +22,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('female_id')->references('id')->on('livestock');
-            $table->foreign('semen_batch_id')->references('id')->on('semen_batch');
-            $table->foreign('embrion_batch_id')->references('id')->on('embrion_batch');
-            $table->foreignId('technique_id')->constrained('technique');
+            $table->foreign('semen_batch_id')->references('id')->on('semen_batches');
+            $table->foreign('embrion_batch_id')->references('id')->on('embrion_batches');
+            $table->foreignId('technique_id')->constrained('techniques');
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service');
+        Schema::dropIfExists('services');
     }
 };

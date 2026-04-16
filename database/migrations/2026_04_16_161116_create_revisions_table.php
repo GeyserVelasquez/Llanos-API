@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('revision', function (Blueprint $table) {
+        Schema::create('revisions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('livestock_id')->constrained('livestock');
             $table->date('date_at');
             $table->text('comment')->nullable();
-            $table->foreignId('result_id')->constrained('result');
-            $table->foreignId('revision_type_id')->constrained('revision_type');
-            $table->foreignId('technique_id')->constrained('technique');
+            $table->foreignId('result_id')->constrained('results');
+            $table->foreignId('revision_type_id')->constrained('revision_types');
+            $table->foreignId('technique_id')->constrained('techniques');
             $table->timestamps();
 
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('revision');
+        Schema::dropIfExists('revisions');
     }
 };

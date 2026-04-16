@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reproductive_diagnostic', function (Blueprint $table) {
+        Schema::create('reproductive_diagnostics', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->tinyInteger('o_izq');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('result_id')->references('id')->on('result');
+            $table->foreign('result_id')->references('id')->on('results');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reproductive_diagnostic');
+        Schema::dropIfExists('reproductive_diagnostics');
     }
 };

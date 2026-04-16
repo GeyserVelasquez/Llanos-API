@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('growths', function (Blueprint $table) {
+        Schema::create('movements_in_lots', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('batch_id');
             $table->date('date');
-            $table->decimal('weight');
-            $table->decimal('height');
-            $table->text('comment')->nullable();
-            $table->unsignedBigInteger('growth_type_id');
+            $table->string('raison');
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('growth_type_id')->references('id')->on('growth_types');
+            $table->foreign('batch_id')->references('id')->on('batches');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('growths');
+        Schema::dropIfExists('movements_in_lots');
     }
 };

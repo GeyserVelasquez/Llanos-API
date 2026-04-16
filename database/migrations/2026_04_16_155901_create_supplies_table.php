@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('supplies', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->foreignId('herd_id')->constrained('herds');
+            $table->decimal('quantity');
+            $table->tinyInteger('is_active');
             $table->timestamps();
-        });
+            $table->foreignId('supply_type_id')->constrained('supply_types');        });
     }
 
     /**
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('supplies');
     }
 };

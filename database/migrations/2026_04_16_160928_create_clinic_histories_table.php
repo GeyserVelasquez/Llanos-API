@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('growths', function (Blueprint $table) {
+        Schema::create('clinic_histories', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
 
-            $table->date('date');
-            $table->decimal('weight');
-            $table->decimal('height');
-            $table->text('comment')->nullable();
-            $table->unsignedBigInteger('growth_type_id');
+
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('growth_type_id')->references('id')->on('growth_types');
+            $table->foreignId('technique_id')->constrained('techniques');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('growths');
+        Schema::dropIfExists('clinic_histories');
     }
 };

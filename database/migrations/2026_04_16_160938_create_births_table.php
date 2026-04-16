@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('birth', function (Blueprint $table) {
+        Schema::create('births', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('mother_id');
             $table->decimal('mother_weight');
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('mother_id')->references('id')->on('livestock');
-            $table->foreign('birth_type_id')->references('id')->on('birth_type');
-            $table->foreignId('technique_id')->constrained('technique');
+            $table->foreign('birth_type_id')->references('id')->on('birth_types');
+            $table->foreignId('technique_id')->constrained('techniques');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('birth');
+        Schema::dropIfExists('births');
     }
 };

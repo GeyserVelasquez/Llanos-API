@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->foreignId('herd_id')->constrained('herds');
+            $table->decimal('unit_price');
+            $table->unsignedBigInteger('origin_id');
+            $table->string('origin_type');
+            $table->foreignId('product_type_id')->constrained('product_types');
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('products');
     }
 };

@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('growths', function (Blueprint $table) {
+        Schema::create('teasings', function (Blueprint $table) {
             $table->id();
-
-            $table->date('date');
-            $table->decimal('weight');
-            $table->decimal('height');
+            $table->date('date_at');
             $table->text('comment')->nullable();
-            $table->unsignedBigInteger('growth_type_id');
-            $table->timestamps();
-
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('growth_type_id')->references('id')->on('growth_types');
+            $table->foreignId('technique_id')->constrained('techniques');
+            $table->foreignId('technique_id')->constrained('techniques');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('growths');
+        Schema::dropIfExists('teasings');
     }
 };

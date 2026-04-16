@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supply_characteristic', function (Blueprint $table) {
+        Schema::create('supply_characteristics', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
             $table->unsignedBigInteger('supply_id');
             $table->timestamps();
 
-            $table->foreign('supply_id')->references('id')->on('supply');
+            $table->foreign('supply_id')->references('id')->on('supplies');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('supply_characteristic');
+        Schema::dropIfExists('supply_characteristics');
     }
 };

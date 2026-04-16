@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('growths', function (Blueprint $table) {
+        Schema::create('extractions', function (Blueprint $table) {
             $table->id();
-
+            $table->morphs('batch');
+            $table->foreignId('technique_id')->nullable()->constrained('techniques')->nullOnDelete();
+            $table->foreignId('extraction_type_id')->constrained('extraction_types')->nullOnDelete();
             $table->date('date');
-            $table->decimal('weight');
-            $table->decimal('height');
-            $table->text('comment')->nullable();
-            $table->unsignedBigInteger('growth_type_id');
+            $table->text('comments')->nullable();
             $table->timestamps();
-
-            $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('growth_type_id')->references('id')->on('growth_types');
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('growths');
+        Schema::dropIfExists('extractions');
     }
 };

@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('outcome', function (Blueprint $table) {
+        Schema::create('outcomes', function (Blueprint $table) {
             $table->id();
 
             $table->date('date');
-            $table->unsignedBigInteger('razon_type_id');
+            $table->unsignedBigInteger('outcome_type_id');
             $table->text('comment')->nullable();
             $table->decimal('amount');
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('razon_type_id')->references('id')->on('razon_type');
+            $table->foreign('outcome_type_id')->references('id')->on('outcome_types');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('outcome');
+        Schema::dropIfExists('outcomes');
     }
 };
