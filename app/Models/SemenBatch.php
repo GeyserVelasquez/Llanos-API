@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+
+#[Fillable(['code', 'name', 'date', 'comment', 'livestock_id', 'technique_id'])]
+class SemenBatch extends Model
+{
+
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'datetime',
+        ];
+    }
+
+    public function livestock(): BelongsTo
+    {
+        return $this->belongsTo(Livestock::class);
+    }
+
+    public function technique(): BelongsTo
+    {
+        return $this->belongsTo(Technique::class);
+    }
+
+    public function products(): MorphMany
+    {
+        return $this->morphMany(Product::class, 'origin');
+    }
+
+    public function services(): MorphMany
+    {
+        return $this->morphMany(Service::class, 'parental');
+    }
+
+    public function extractions(): MorphMany
+    {
+        return $this->morphMany(Extraction::class, 'batch');
+    }
+}
