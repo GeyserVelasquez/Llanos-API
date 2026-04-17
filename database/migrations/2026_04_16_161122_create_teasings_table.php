@@ -16,8 +16,7 @@ return new class extends Migration
             $table->date('date_at');
             $table->text('comment')->nullable();
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreignId('technique_id')->constrained('techniques');
-            $table->foreignId('technique_id')->constrained('techniques');
+            $table->foreignId('technique_id')->constrained();
             $table->timestamps();
         });
     }

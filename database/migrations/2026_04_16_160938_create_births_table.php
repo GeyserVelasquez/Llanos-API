@@ -13,19 +13,17 @@ return new class extends Migration
     {
         Schema::create('births', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('mother_id');
+            $table->foreignId('mother_id')->constrained('livestock');
             $table->decimal('mother_weight');
             $table->date('birth_date');
-            $table->unsignedBigInteger('birth_type_id');
-
+            $table->date('postbirth_revision_date');
+            $table->foreignId('birth_type_id')->constrained();
+            $table->foreignId('technique_id')->constrained();
             $table->text('comment')->nullable();
             $table->date('deceased_at')->nullable();
             $table->tinyInteger('is_active');
             $table->timestamps();
 
-            $table->foreign('mother_id')->references('id')->on('livestock');
-            $table->foreign('birth_type_id')->references('id')->on('birth_types');
-            $table->foreignId('technique_id')->constrained('techniques');
         });
     }
 

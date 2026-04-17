@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreignId('technique_id')->constrained('techniques');
+            $table->foreignId('technique_id')->constrained();
         });
     }
 

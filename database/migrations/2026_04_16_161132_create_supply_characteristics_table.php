@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->unsignedBigInteger('supply_id');
+            $table->foreignId('supply_id')->constrained();
             $table->timestamps();
-
-            $table->foreign('supply_id')->references('id')->on('supplies');
         });
     }
 

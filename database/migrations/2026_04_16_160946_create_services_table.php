@@ -13,18 +13,13 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('female_id');
-            $table->unsignedBigInteger('semen_batch_id')->nullable();
-            $table->unsignedBigInteger('embrion_batch_id')->nullable();
-            $table->date('date');
-
-            $table->tinyInteger('is_active');
+            $table->foreignId('female_id')->constrained('livestock');
+            $table->morphs('parental');
+            $table->foreignId('technique_id')->constrained();
+            $table->foreignId('service_type_id')->nullable()->constrained();
+            $table->text('comment');
+            $table->date('made_at');
             $table->timestamps();
-
-            $table->foreign('female_id')->references('id')->on('livestock');
-            $table->foreign('semen_batch_id')->references('id')->on('semen_batches');
-            $table->foreign('embrion_batch_id')->references('id')->on('embrion_batches');
-            $table->foreignId('technique_id')->constrained('techniques');
         });
     }
 

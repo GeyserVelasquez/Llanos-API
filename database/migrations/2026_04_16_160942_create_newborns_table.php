@@ -13,17 +13,11 @@ return new class extends Migration
     {
         Schema::create('newborns', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('birth_id');
-
-            $table->unsignedBigInteger('mother_history_id');
-            $table->unsignedBigInteger('newborn_type_id');
-            $table->decimal('weight');
-            $table->timestamps();
-
-            $table->foreign('birth_id')->references('id')->on('births');
+            $table->foreignId('birth_id')->constrained();
+            $table->foreignId('newborn_type_id')->constrained();
+            $table->decimal('newborn_weight');
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('mother_history_id')->references('id')->on('clinic_histories');
-            $table->foreign('newborn_type_id')->references('id')->on('newborn_types');
+            $table->timestamps();
         });
     }
 

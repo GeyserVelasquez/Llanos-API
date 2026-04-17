@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->date('date');
-            $table->unsignedBigInteger('outcome_type_id');
+            $table->foreignId('outcome_type_id')->constrained();
             $table->text('comment')->nullable();
             $table->decimal('amount');
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('outcome_type_id')->references('id')->on('outcome_types');
         });
     }
 

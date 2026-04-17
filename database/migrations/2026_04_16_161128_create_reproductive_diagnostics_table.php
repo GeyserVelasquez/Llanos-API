@@ -19,11 +19,10 @@ return new class extends Migration
             $table->tinyInteger('u_izq');
             $table->tinyInteger('u_der');
 
-            $table->unsignedBigInteger('result_id');
+            $table->foreignId('result_id')->constrained();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('result_id')->references('id')->on('results');
         });
     }
 

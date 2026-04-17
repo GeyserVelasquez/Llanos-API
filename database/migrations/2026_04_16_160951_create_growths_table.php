@@ -18,11 +18,10 @@ return new class extends Migration
             $table->decimal('weight');
             $table->decimal('height');
             $table->text('comment')->nullable();
-            $table->unsignedBigInteger('growth_type_id');
+            $table->foreignId('growth_type_id')->constrained();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('growth_type_id')->references('id')->on('growth_types');
         });
     }
 

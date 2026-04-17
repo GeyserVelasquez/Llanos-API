@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('clinic_history_diagnostics', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('clinic_history_id');
-            $table->unsignedBigInteger('clinic_diagnostic_id');
+            $table->foreignId('clinic_history_id')->constrained();
+            $table->foreignId('clinic_diagnostic_id')->constrained();
             $table->timestamps();
-
-            $table->foreign('clinic_history_id')->references('id')->on('clinic_histories');
-            $table->foreign('clinic_diagnostic_id')->references('id')->on('clinic_diagnostics');
         });
     }
 

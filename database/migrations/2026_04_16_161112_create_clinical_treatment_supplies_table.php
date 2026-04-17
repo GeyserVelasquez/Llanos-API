@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('clinical_treatment_supplies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('supply_id');
+            $table->foreignId('supply_id')->constrained();
             $table->decimal('quantity');
-            $table->unsignedBigInteger('clinical_treatment_id');
+            $table->foreignId('clinical_treatment_id')->constrained();
             $table->timestamps();
-
-            $table->foreign('supply_id')->references('id')->on('supplies');
-            $table->foreign('clinical_treatment_id')->references('id')->on('clinical_treatments');
         });
     }
 

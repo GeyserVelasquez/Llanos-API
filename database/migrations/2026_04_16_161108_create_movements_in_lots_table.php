@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('movements_in_lots', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('batch_id');
+            $table->foreignId('batch_id')->constrained();
             $table->date('date');
             $table->string('raison');
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('batch_id')->references('id')->on('batches');
         });
     }
 

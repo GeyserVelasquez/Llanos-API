@@ -26,16 +26,16 @@ return new class extends Migration
             $table->boolean('is_enabled')->default(true);
             $table->boolean('is_alive')->default(true);
 
-            $table->foreignId('entry_cause_id')->constrained('entry_causes');
-            $table->foreignId('state_id')->constrained('states');
-            $table->foreignId('animal_category_id')->constrained('animal_categories');
-            $table->foreignId('breed_id')->nullable()->constrained('breeds')->nullOnDelete();
-            $table->foreignId('color_id')->nullable()->constrained('colors')->nullOnDelete();
-            $table->foreignId('classification_id')->nullable()->constrained('classifications')->nullOnDelete(); // Corregido typo
-            $table->foreignId('owner_id')->nullable()->constrained('owners')->nullOnDelete();
-            $table->foreignId('technique_id')->nullable()->constrained('techniques')->nullOnDelete();
+            $table->foreignId('entry_cause_id')->constrained();
+            $table->foreignId('state_id')->constrained();
+            $table->foreignId('animal_category_id')->constrained();
+            $table->foreignId('breed_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('color_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('classification_id')->nullable()->constrained()->nullOnDelete(); // Corregido typo
+            $table->foreignId('owner_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
 
-            $table->foreignId('batch_id')->nullable()->constrained('batches')->nullOnDelete();
+            $table->foreignId('batch_id')->nullable()->constrained()->nullOnDelete();
 
             $table->foreignId('father_id')->nullable()->constrained('livestock')->nullOnDelete();
             $table->foreignId('mother_id')->nullable()->constrained('livestock')->nullOnDelete();

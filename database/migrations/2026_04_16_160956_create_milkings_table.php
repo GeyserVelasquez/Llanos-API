@@ -15,17 +15,15 @@ return new class extends Migration
             $table->id();
 
             $table->date('date');
-            $table->unsignedBigInteger('milking_type_id');
+            $table->foreignId('milking_type_id')->constrained();
             $table->decimal('morning_weight');
             $table->decimal('afternoon_weight');
             $table->decimal('total_weight');
-            $table->unsignedBigInteger('mother_history_id');
+            $table->foreignId('mother_history_id')->constrained('clinic_histories');
             $table->tinyInteger('is_active');
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('milking_type_id')->references('id')->on('milking_types');
-            $table->foreign('mother_history_id')->references('id')->on('clinic_histories');
         });
     }
 

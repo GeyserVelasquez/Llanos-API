@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->date('date');
-            $table->unsignedBigInteger('mother_history_id');
-            $table->unsignedBigInteger('abort_type_id');
+            $table->foreignId('mother_history_id')->constrained('clinic_histories');
+            $table->foreignId('abort_type_id')->constrained();
             $table->text('comment')->nullable();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreign('mother_history_id')->references('id')->on('clinic_histories');
-            $table->foreign('abort_type_id')->references('id')->on('abort_types');
         });
     }
 

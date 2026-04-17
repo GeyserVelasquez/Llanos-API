@@ -16,9 +16,8 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->decimal('unit_price');
-            $table->unsignedBigInteger('origin_id');
-            $table->string('origin_type');
-            $table->foreignId('product_type_id')->constrained('product_types');
+            $table->morphs('origin');
+            $table->foreignId('product_type_id')->constrained();
             $table->timestamps();
         });
     }
