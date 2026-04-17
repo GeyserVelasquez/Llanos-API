@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->date('date_at');
             $table->tinyInteger('is_active');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('newborn_type_id')->constrained();
             $table->decimal('newborn_weight');
             $table->foreignId('livestock_id')->constrained('livestock');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

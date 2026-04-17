@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -10,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(['livestock_id', 'date_at', 'comment', 'result_id', 'revision_type_id', 'technique_id'])]
 class Revision extends Model
 {
+    use SoftDeletes;
+
 
 
     protected function casts(): array

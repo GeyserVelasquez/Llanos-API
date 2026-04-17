@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('certificate_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -12,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'livestock_id', 'technique_id'])]
 class ClinicHistory extends Model
 {
+    use SoftDeletes;
+
 
 
     public function livestock(): BelongsTo

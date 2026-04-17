@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('comment')->nullable();
             $table->date('deceased_at')->nullable();
             $table->tinyInteger('is_active');
+            $table->softDeletes();
             $table->timestamps();
 
         });

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('supply_id')->constrained();
             $table->decimal('quantity');
             $table->foreignId('clinical_treatment_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

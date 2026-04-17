@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('animal_category_id')->constrained();
             $table->foreignId('breed_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('color_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('classification_id')->nullable()->constrained()->nullOnDelete(); // Corregido typo
+            $table->foreignId('classification_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('owner_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
 
@@ -40,8 +40,9 @@ return new class extends Migration
             $table->foreignId('father_id')->nullable()->constrained('livestock')->nullOnDelete();
             $table->foreignId('mother_id')->nullable()->constrained('livestock')->nullOnDelete();
             $table->foreignId('adoptive_mother_id')->nullable()->constrained('livestock')->nullOnDelete();
-            $table->foreignId('receiving_mother_id')->nullable()->constrained('livestock')->nullOnDelete(); // Corregido 'mothe_id'
+            $table->foreignId('receiving_mother_id')->nullable()->constrained('livestock')->nullOnDelete();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('height');
             $table->text('comment')->nullable();
             $table->foreignId('growth_type_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

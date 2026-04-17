@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -10,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(['supply_id', 'quantity', 'clinical_treatment_id'])]
 class ClinicalTreatmentSupply extends Model
 {
+    use SoftDeletes;
+
 
 
     public function supply(): BelongsTo

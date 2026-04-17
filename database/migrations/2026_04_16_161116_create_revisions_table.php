@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('result_id')->constrained('results');
             $table->foreignId('revision_type_id')->constrained('revision_types');
             $table->foreignId('technique_id')->constrained('techniques');
+            $table->softDeletes();
             $table->timestamps();
 
         });

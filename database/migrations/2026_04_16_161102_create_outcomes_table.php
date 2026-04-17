@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('outcome_type_id')->constrained();
             $table->text('comment')->nullable();
             $table->decimal('amount');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

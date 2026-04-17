@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('batch_id')->constrained();
             $table->date('date');
             $table->string('raison');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');
