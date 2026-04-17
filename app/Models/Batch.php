@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -12,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 #[Fillable(['code', 'name', 'herd_id'])]
 class Batch extends Model
 {
+    use SoftDeletes;
+
 
 
     public function herd(): BelongsTo

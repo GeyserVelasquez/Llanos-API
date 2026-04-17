@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -11,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 #[Fillable(['female_id', 'parental_type', 'parental_id', 'technique_id', 'service_type_id', 'comment', 'made_at'])]
 class Service extends Model
 {
+    use SoftDeletes;
+
 
 
     protected function casts(): array

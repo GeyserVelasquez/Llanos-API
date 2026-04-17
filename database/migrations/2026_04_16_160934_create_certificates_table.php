@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('issue_date');
             $table->date('expiry_date');
             $table->tinyInteger('is_active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('product_movement_type_id')->constrained('product_movement_types');
             $table->dateTime('made_at')->useCurrent();
             $table->json('attributes');
+            $table->softDeletes();
             $table->timestamps();
 
         });

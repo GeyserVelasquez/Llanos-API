@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('service_type_id')->nullable()->constrained();
             $table->text('comment');
             $table->date('made_at');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

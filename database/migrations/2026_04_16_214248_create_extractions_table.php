@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('extraction_type_id')->constrained('extraction_types')->nullOnDelete();
             $table->date('date');
             $table->text('comments')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

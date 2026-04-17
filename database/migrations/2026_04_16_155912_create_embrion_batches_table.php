@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name')->nullable();
             $table->dateTime('date')->useCurrent();
+            $table->softDeletes();
             $table->timestamps();
             $table->foreignId('mother_id')->constrained('livestock');
             $table->foreignId('father_id')->nullable()->constrained('livestock');

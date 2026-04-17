@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('total_weight');
             $table->foreignId('mother_history_id')->constrained('clinic_histories');
             $table->tinyInteger('is_active');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

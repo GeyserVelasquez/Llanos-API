@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('comment')->nullable();
             $table->foreignId('livestock_id')->constrained('livestock');
             $table->foreignId('technique_id')->constrained('techniques');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

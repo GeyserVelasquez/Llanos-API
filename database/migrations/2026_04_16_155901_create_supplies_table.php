@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('quantity');
             $table->tinyInteger('is_active');
+            $table->softDeletes();
             $table->timestamps();
             $table->foreignId('supply_type_id')->constrained('supply_types');        });
     }

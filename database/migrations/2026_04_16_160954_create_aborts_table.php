@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('mother_history_id')->constrained('clinic_histories');
             $table->foreignId('abort_type_id')->constrained();
             $table->text('comment')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

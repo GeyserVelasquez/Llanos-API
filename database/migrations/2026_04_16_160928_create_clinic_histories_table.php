@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code');
 
 
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('livestock_id')->constrained('livestock');

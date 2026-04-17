@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->foreignId('supply_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

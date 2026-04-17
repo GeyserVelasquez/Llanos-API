@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('unit_price');
             $table->morphs('origin');
             $table->foreignId('product_type_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
