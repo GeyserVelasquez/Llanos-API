@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+#[Fillable(['code', 'livestock_id', 'technique_id'])]
+class ClinicHistory extends Model
+{
+
+
+    public function livestock(): BelongsTo
+    {
+        return $this->belongsTo(Livestock::class);
+    }
+
+    public function technique(): BelongsTo
+    {
+        return $this->belongsTo(Technique::class);
+    }
+
+    public function clinicDiagnostics(): BelongsToMany
+    {
+        return $this->belongsToMany(ClinicDiagnostic::class, 'clinic_history_diagnostics');
+    }
+
+    public function clinicalTreatments(): BelongsToMany
+    {
+        return $this->belongsToMany(ClinicalTreatment::class, 'clinic_history_treatments');
+    }
+
+    public function aborts(): HasMany
+    {
+        return $this->hasMany(Abort::class, 'mother_history_id');
+    }
+
+    public function milkings(): HasMany
+    {
+        return $this->hasMany(Milking::class, 'mother_history_id');
+    }
+}
