@@ -25,7 +25,7 @@ class LookUpTablesSeeder extends Seeder
                 ['code' => 'TREATMENT', 'name' => 'En Tratamiento'],
                 ['code' => 'QUARANTINE', 'name' => 'En Cuarentena'],
             ],
-            'classification' => [
+            'classifications' => [
                 ['code' => 'GOOD', 'name' => 'Bueno'],
                 ['code' => 'REGULAR', 'name' => 'Regular'],
                 ['code' => 'BAD', 'name' => 'Malo'],
