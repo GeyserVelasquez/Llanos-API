@@ -154,4 +154,18 @@ class AbortTypeTest extends TestCase
 
         $this->assertSoftDeleted($abortType);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_abortType(): void
+    {
+        $abortType = AbortType::factory()->create();
+
+        $abortType->delete();
+
+        $route = route('abort-types.show', $abortType);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }

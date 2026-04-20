@@ -180,4 +180,18 @@ class SupplyTypeTest extends TestCase
 
         $this->assertSoftDeleted($supplyType);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_supplyType(): void
+    {
+        $supplyType = SupplyType::factory()->create();
+
+        $supplyType->delete();
+
+        $route = route('supply-types.show', $supplyType);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }

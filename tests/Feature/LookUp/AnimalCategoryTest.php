@@ -180,4 +180,18 @@ class AnimalCategoryTest extends TestCase
 
         $this->assertSoftDeleted($animalCategory);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_animalCategory(): void
+    {
+        $animalCategory = AnimalCategory::factory()->create();
+
+        $animalCategory->delete();
+
+        $route = route('animal-categories.show', $animalCategory);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }

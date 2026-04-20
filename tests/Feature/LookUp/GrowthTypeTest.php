@@ -180,4 +180,18 @@ class GrowthTypeTest extends TestCase
 
         $this->assertSoftDeleted($growthType);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_growthType(): void
+    {
+        $growthType = GrowthType::factory()->create();
+
+        $growthType->delete();
+
+        $route = route('growth-types.show', $growthType);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }

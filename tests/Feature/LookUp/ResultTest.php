@@ -180,4 +180,18 @@ class ResultTest extends TestCase
 
         $this->assertSoftDeleted($result);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_result(): void
+    {
+        $result = Result::factory()->create();
+
+        $result->delete();
+
+        $route = route('results.show', $result);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }

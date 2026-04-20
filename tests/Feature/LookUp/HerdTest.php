@@ -177,4 +177,18 @@ class HerdTest extends TestCase
 
         $this->assertSoftDeleted($herd);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_herd(): void
+    {
+        $herd = Herd::factory()->create();
+
+        $herd->delete();
+
+        $route = route('herds.show', $herd);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }

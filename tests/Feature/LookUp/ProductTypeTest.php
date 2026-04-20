@@ -180,4 +180,18 @@ class ProductTypeTest extends TestCase
 
         $this->assertSoftDeleted($productType);
     }
+
+    public function test_users_cannot_get_a_soft_deleted_productType(): void
+    {
+        $productType = ProductType::factory()->create();
+
+        $productType->delete();
+
+        $route = route('product-types.show', $productType);
+
+        $response = $this->actingAs($this->user)
+            ->getJson($route);
+
+        $response->assertStatus(404);
+    }
 }
