@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 #[Fillable(['code', 'name'])]
 class EmbrionExtractionType extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
 }

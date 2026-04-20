@@ -12,9 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'name'])]
 class ServiceType extends Model
 {
-    use SoftDeletes;
-
-
+    use SoftDeletes, HasFactory;
 
     public function services(): HasMany
     {
