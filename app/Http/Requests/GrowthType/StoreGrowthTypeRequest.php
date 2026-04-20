@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\GrowthType;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class StoreGrowthTypeRequest extends FormRequest
 {
 
     /**
@@ -21,7 +21,7 @@ class StoreBreedRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('growth_types', 'code')
             ],
             'name' => [
                 'required',

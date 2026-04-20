@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\OutcomeType;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class UpdateOutcomeTypeRequest extends FormRequest
 {
 
     /**
@@ -16,15 +16,17 @@ class StoreBreedRequest extends FormRequest
      */
     public function rules(): array
     {
+        $outcomeType = $this->route('outcomeType');
+
         return [
             'code' => [
-                'required',
+                'required_without:name',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('outcome_types', 'code')->ignore($outcomeType)
             ],
             'name' => [
-                'required',
+                'required_without:code',
                 'string',
                 'max:255'
             ],

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\SupplyType;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class UpdateSupplyTypeRequest extends FormRequest
 {
 
     /**
@@ -16,15 +16,17 @@ class StoreBreedRequest extends FormRequest
      */
     public function rules(): array
     {
+        $supplyType = $this->route('supply_type');
+
         return [
             'code' => [
-                'required',
+                'required_without:name',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('supply_types', 'code')->ignore($supplyType)
             ],
             'name' => [
-                'required',
+                'required_without:code',
                 'string',
                 'max:255'
             ],

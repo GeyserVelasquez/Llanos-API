@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\Color;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class StoreColorRequest extends FormRequest
 {
 
     /**
@@ -21,7 +21,7 @@ class StoreBreedRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('colors', 'code')
             ],
             'name' => [
                 'required',

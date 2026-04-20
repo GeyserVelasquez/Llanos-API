@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\AbortType;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class StoreAbortTypeRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,7 +20,7 @@ class StoreBreedRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('abort_types', 'code')
             ],
             'name' => [
                 'required',

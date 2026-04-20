@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\NewbornType;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class UpdateNewbornTypeRequest extends FormRequest
 {
 
     /**
@@ -16,15 +16,17 @@ class StoreBreedRequest extends FormRequest
      */
     public function rules(): array
     {
+        $newbornType = $this->route('newbornType');
+
         return [
             'code' => [
-                'required',
+                'required_without:name',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('newborn_types', 'code')->ignore($newbornType)
             ],
             'name' => [
-                'required',
+                'required_without:code',
                 'string',
                 'max:255'
             ],

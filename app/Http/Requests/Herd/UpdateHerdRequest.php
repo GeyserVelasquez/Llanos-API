@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\Herd;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class UpdateHerdRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,15 +15,17 @@ class StoreBreedRequest extends FormRequest
      */
     public function rules(): array
     {
+        $herd = $this->route('herd');
+
         return [
             'code' => [
-                'required',
+                'required_without:name',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('herds', 'code')->ignore($herd)
             ],
             'name' => [
-                'required',
+                'required_without:code',
                 'string',
                 'max:255'
             ],

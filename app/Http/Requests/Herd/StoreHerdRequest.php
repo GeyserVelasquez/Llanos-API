@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\Herd;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class StoreHerdRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,7 +20,7 @@ class StoreBreedRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('herds', 'code')
             ],
             'name' => [
                 'required',

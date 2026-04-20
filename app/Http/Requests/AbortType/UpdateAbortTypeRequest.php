@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Breed;
+namespace App\Http\Requests\AbortType;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBreedRequest extends FormRequest
+class UpdateAbortTypeRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,15 +15,17 @@ class StoreBreedRequest extends FormRequest
      */
     public function rules(): array
     {
+        $abortType = $this->route('abort_type');
+
         return [
             'code' => [
-                'required',
+                'required_without:name',
                 'string',
                 'max:255',
-                Rule::unique('breeds', 'code')
+                Rule::unique('abort_types', 'code')->ignore($abortType)
             ],
             'name' => [
-                'required',
+                'required_without:code',
                 'string',
                 'max:255'
             ],
