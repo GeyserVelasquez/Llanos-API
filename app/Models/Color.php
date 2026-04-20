@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'name'])]
 class Color extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,HasFactory;
 
 
 

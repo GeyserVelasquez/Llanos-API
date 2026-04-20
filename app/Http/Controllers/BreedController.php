@@ -26,13 +26,7 @@ class BreedController extends Controller
      */
     public function store(StoreBreedRequest $request)
     {
-        $data = $request->validate([
-            'code' => [
-                'required',
-                Rule::unique('breeds')
-            ],
-            'name' => ['required'],
-        ]);
+        $data = $request->validated();
 
         $breed = Breed::create($data);
 

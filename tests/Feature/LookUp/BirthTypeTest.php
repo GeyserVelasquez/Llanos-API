@@ -1,14 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace LookUp;
 
-use App\Models\Breed;
+use App\Models\BirthType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
-class BreedTest extends TestCase
+class BirthTypeTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -21,12 +20,12 @@ class BreedTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_users_can_get_a_list_of_breeds(): void
+    public function test_users_can_get_a_list_of_birth_types(): void
     {
 
-        Breed::factory(3)->create();
+        BirthType::factory(3)->create();
 
-        $route = route('breeds.index');
+        $route = route('birth-types.index');
 
         $response = $this->actingAs($this->user)
             ->getJson($route);
@@ -34,11 +33,6 @@ class BreedTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertJsonCount(3, 'data');
-
-        $response->assertJsonFragment([
-            'code' => 'BR',
-            'name' => 'Brahman'
-        ]);
 
         $response->assertJsonStructure([
             'data' => [
@@ -51,15 +45,15 @@ class BreedTest extends TestCase
         ]);
     }
 
-    public function test_unauthenticated_users_cannot_access_breeds_endpoints(): void
+    public function test_unauthenticated_users_cannot_access_birth_types_endpoints(): void
     {
-        $breed = Breed::factory()->create();
+        $birthType = BirthType::factory()->create();
 
-        $routeIndex = route('breeds.index');
+        $routeIndex = route('birth-types.index');
         $responseIndex = $this->getJson($routeIndex);
         $responseIndex->assertStatus(401);
 
-        $routeShow = route('breeds.show', $breed);
+        $routeShow = route('birth-types.show', $birthType);
         $responseShow = $this->getJson($routeShow);
         $responseShow->assertStatus(401);
 
@@ -67,10 +61,10 @@ class BreedTest extends TestCase
             'code' => 'sh',
             'name' => 'showTest'
         ];
-        $routeStore = route('breeds.store');
+        $routeStore = route('birth-types.store');
         $responseStore = $this->postJson($routeStore, $storePayload);
         $responseStore->assertStatus(401);
-        $this->assertDatabaseMissing('breeds', [
+        $this->assertDatabaseMissing('birth_types', [
             'code' => 'sh'
         ]);
 
@@ -78,23 +72,23 @@ class BreedTest extends TestCase
         $updatePayload = [
             'name' => 'test'
         ];
-        $routeUpdate = route('breeds.update', $breed);
+        $routeUpdate = route('birth-types.update', $birthType);
         $responseUpdate = $this->putJson($routeUpdate, $updatePayload);
         $responseUpdate->assertStatus(401);
 
-        $routeDestroy = route('breeds.destroy', $breed);
+        $routeDestroy = route('birth-types.destroy', $birthType);
         $responseDestroy = $this->deleteJson($routeDestroy);
         $responseDestroy->assertStatus(401);
-        $this->assertDatabaseMissing('breeds', [
+        $this->assertDatabaseMissing('birth_types', [
             'name' => 'test'
         ]);
     }
 
-    public function test_users_can_get_a_single_breed(): void
+    public function test_users_can_get_a_single_birthType(): void
     {
-        $breed = Breed::factory()->create();
+        $birthType = BirthType::factory()->create();
 
-        $route = route('breeds.show', $breed);
+        $route = route('birth-types.show', $birthType);
 
         $response = $this->actingAs($this->user)
             ->getJson($route);
@@ -102,8 +96,8 @@ class BreedTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertJsonFragment([
-            'code' => $breed->code,
-            'name' => $breed->name
+            'code' => $birthType->code,
+            'name' => $birthType->name
         ]);
 
         $response->assertJsonStructure([
@@ -115,53 +109,53 @@ class BreedTest extends TestCase
         ]);
     }
 
-    public function test_users_can_create_a_new_breed(): void
+    public function test_users_can_create_a_new_birthType(): void
     {
         $payload = [
             'code' => 'HO',
             'name' => 'Holstein'
         ];
 
-        $route = route('breeds.store');
+        $route = route('birth-types.store');
 
         $response = $this->actingAs($this->user)
              ->postJson($route,$payload);
 
         $response->assertStatus(201);
 
-        $this->assertDatabaseHas('breeds', [
+        $this->assertDatabaseHas('birth_types', [
             'code' => 'HO'
         ]);
     }
 
-    public function test_users_cannot_create_a_new_breed_with_missing_parameters(): void
+    public function test_users_cannot_create_a_new_birthType_with_missing_parameters(): void
     {
         $payload = [
             'name' => 'Holstein'
         ];
 
-        $route = route('breeds.store');
+        $route = route('birth-types.store');
 
         $response = $this->actingAs($this->user)
              ->postJson($route,$payload);
 
         $response->assertStatus(422);
 
-        $this->assertDatabaseMissing('breeds', [
+        $this->assertDatabaseMissing('birth_types', [
             'name' => 'Holstein'
         ]);
     }
 
-    public function test_users_cannot_create_a_breed_with_a_duplicated_code(): void
+    public function test_users_cannot_create_a_birthType_with_a_duplicated_code(): void
     {
-        $breed = Breed::factory()->create();
+        $birthType = BirthType::factory()->create();
 
         $payload = [
-            'code' => $breed->code,
-            'name' => 'Brahman Modificado'
+            'code' => $birthType->code,
+            'name' => 'Modificado'
         ];
 
-        $route = route('breeds.store');
+        $route = route('birth-types.store');
 
         $response = $this->actingAs($this->user)
             ->postJson($route, $payload);
@@ -171,67 +165,67 @@ class BreedTest extends TestCase
         $response->assertJsonValidationErrors(['code']);
     }
 
-    public function test_users_can_update_a_breed(): void
+    public function test_users_can_update_a_birthType(): void
     {
-        $breed = Breed::factory()->create();
+        $birthType = BirthType::factory()->create();
 
         $payload = [
             'code' => 'WG',
             'name' => 'Wagyu'
         ];
 
-        $route = route('breeds.update', $breed);
+        $route = route('birth-types.update', $birthType);
 
         $response = $this->actingAs($this->user)
             ->putJson($route, $payload);
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('breeds', [
+        $this->assertDatabaseHas('birth_types', [
             'code' => 'WG'
         ]);
     }
 
-    public function test_users_cannot_update_a_breed_with_missing_parameters(): void
+    public function test_users_cannot_update_a_birthType_with_missing_parameters(): void
     {
-        $breed = Breed::factory()->create();
+        $birthType = BirthType::factory()->create();
 
         $payload = [];
 
-        $route = route('breeds.update', $breed);
+        $route = route('birth-types.update', $birthType);
 
         $response = $this->actingAs($this->user)
             ->putJson($route, $payload);
 
         $response->assertStatus(422);
 
-        $this->assertDatabaseHas($breed);
+        $this->assertDatabaseHas($birthType);
     }
 
-    public function test_users_can_delete_a_breed(): void
+    public function test_users_can_delete_a_birthType(): void
     {
-        $breed = Breed::factory()->create([
+        $birthType = BirthType::factory()->create([
             'code' => 'AN',
             'name' => 'Angus'
         ]);
 
-        $route = route('breeds.destroy', $breed);
+        $route = route('birth-types.destroy', $birthType);
 
         $response = $this->actingAs($this->user)
             ->deleteJson($route);
 
         $response->assertStatus(204);
 
-        $this->assertSoftDeleted($breed);
+        $this->assertSoftDeleted($birthType);
     }
 
-    public function test_users_cannot_get_a_soft_deleted_breed(): void
+    public function test_users_cannot_get_a_soft_deleted_birthType(): void
     {
-        $breed = Breed::factory()->create();
+        $birthType = BirthType::factory()->create();
 
-        $breed->delete();
+        $birthType->delete();
 
-        $route = route('breeds.show', $breed);
+        $route = route('birth-types.show', $birthType);
 
         $response = $this->actingAs($this->user)
             ->getJson($route);

@@ -18,14 +18,12 @@ class StoreBreedRequest extends FormRequest
     {
         return [
             'code' => [
-                'sometimes',
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('breeds', 'code')
             ],
             'name' => [
-                'sometimes',
                 'required',
                 'string',
                 'max:255'

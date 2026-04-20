@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'name'])]
 class ProductMovementType extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,HasFactory;
 
 
 

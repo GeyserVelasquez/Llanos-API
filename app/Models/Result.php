@@ -12,9 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'name'])]
 class Result extends Model
 {
-    use SoftDeletes;
-
-
+    use SoftDeletes, HasFactory;
 
     public function revisions(): HasMany
     {

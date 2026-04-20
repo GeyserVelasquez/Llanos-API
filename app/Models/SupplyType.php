@@ -12,9 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'name'])]
 class SupplyType extends Model
 {
-    use SoftDeletes;
-
-
+    use SoftDeletes, HasFactory;
 
     public function supplies(): HasMany
     {
