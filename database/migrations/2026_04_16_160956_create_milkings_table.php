@@ -13,18 +13,14 @@ return new class extends Migration
     {
         Schema::create('milkings', function (Blueprint $table) {
             $table->id();
-
-            $table->date('date');
+            $table->foreignId('livestock_id')->constrained('livestock');
+            $table->date('made_at');
             $table->foreignId('milking_type_id')->constrained();
-            $table->decimal('morning_weight');
-            $table->decimal('afternoon_weight');
-            $table->decimal('total_weight');
-            $table->foreignId('mother_history_id')->constrained('clinic_histories');
-            $table->tinyInteger('is_active');
+            $table->decimal('first_weight');
+            $table->decimal('second_weight');
+            $table->decimal('third_weight');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 

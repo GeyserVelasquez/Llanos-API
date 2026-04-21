@@ -11,12 +11,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['code', 'livestock_id', 'technique_id'])]
+#[Fillable(['code', 'name', 'description', 'attributes', 'livestock_id', 'technique_id'])]
 class ClinicHistory extends Model
 {
     use SoftDeletes;
 
 
+
+    protected function casts(): array
+    {
+        return [
+            'attributes' => 'array',
+        ];
+    }
 
     public function livestock(): BelongsTo
     {

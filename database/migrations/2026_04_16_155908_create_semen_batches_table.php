@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('semen_batches', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->string('name')->nullable();
-            $table->dateTime('date')->useCurrent();
-            $table->text('comment')->nullable();
+            $table->string('name');
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreignId('technique_id')->constrained('techniques');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

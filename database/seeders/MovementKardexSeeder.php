@@ -14,8 +14,6 @@ class MovementKardexSeeder extends Seeder
     {
         $livestockId = DB::table('livestock')->first()->id;
         $productId = DB::table('products')->first()->id;
-        $inMovementTypeId = DB::table('product_movement_types')->where('code', 'IN')->first()->id;
-        $outMovementTypeId = DB::table('product_movement_types')->where('code', 'OUT')->first()->id;
 
         // Sample Extraction for Event
         $techniqueId = DB::table('techniques')->first()->id;
@@ -31,7 +29,7 @@ class MovementKardexSeeder extends Seeder
             [
                 'item_id' => $livestockId,
                 'item_type' => 'App\Models\Livestock',
-                'product_movement_type_id' => $inMovementTypeId,
+                'type' => 'income',
                 'quantity' => 1,
                 'event_id' => $productMovementId,
                 'event_type' => 'App\Models\ProductMovement',
@@ -42,7 +40,7 @@ class MovementKardexSeeder extends Seeder
             [
                 'item_id' => $productId,
                 'item_type' => 'App\Models\Product',
-                'product_movement_type_id' => $outMovementTypeId,
+                'type' => 'outcome',
                 'quantity' => 5,
                 'event_id' => $productMovementId,
                 'event_type' => 'App\Models\ProductMovement',

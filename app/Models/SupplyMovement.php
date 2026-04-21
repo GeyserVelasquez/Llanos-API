@@ -8,30 +8,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Enums\MovementType;
 
-#[Fillable(['batch_id', 'date', 'raison', 'livestock_id'])]
-class MovementInLot extends Model
+#[Fillable(['supply_id', 'type', 'made_at', 'attributes'])]
+class SupplyMovement extends Model
 {
     use SoftDeletes;
 
 
 
-    protected $table = 'movements_in_lots';
-
     protected function casts(): array
     {
         return [
-            'date' => 'date',
+            'made_at' => 'datetime',
+            'attributes' => 'array',
+            'type' => MovementType::class,
         ];
     }
 
-    public function batch(): BelongsTo
+    public function supply(): BelongsTo
     {
-        return $this->belongsTo(Batch::class);
-    }
-
-    public function livestock(): BelongsTo
-    {
-        return $this->belongsTo(Livestock::class);
+        return $this->belongsTo(supply::class);
     }
 }

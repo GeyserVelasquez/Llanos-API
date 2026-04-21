@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('movement_kardex', function (Blueprint $table) {
             $table->id();
             $table->morphs('item');
-            $table->foreignId('product_movement_type_id')->constrained('product_movement_types');
+            $table->nullableMorphs('event');
+            $table->enum('type', ['income','outcome','loss']);
             $table->integer('quantity');
-            $table->morphs('event');
             $table->dateTime('date');
             $table->softDeletes();
             $table->timestamps();

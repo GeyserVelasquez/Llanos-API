@@ -10,23 +10,16 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable([
-    'mother_id', 'mother_weight', 'birth_date', 'postbirth_revision_date',
-    'birth_type_id', 'technique_id', 'comment', 'deceased_at', 'is_active'
-])]
+#[Fillable(['mother_id', 'birth_date', 'postbirth_revision_date','birth_type_id', 'technique_id'])]
 class Birth extends Model
 {
     use SoftDeletes;
-
-
 
     protected function casts(): array
     {
         return [
             'birth_date' => 'date',
             'postbirth_revision_date' => 'date',
-            'deceased_at' => 'date',
-            'is_active' => 'integer',
         ];
     }
 

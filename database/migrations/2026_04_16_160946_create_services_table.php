@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->foreignId('female_id')->constrained('livestock');
-            $table->morphs('parental');
-            $table->foreignId('technique_id')->constrained();
+            $table->morphs('parentable');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('service_type_id')->nullable()->constrained();
-            $table->text('comment');
             $table->date('made_at');
             $table->softDeletes();
             $table->timestamps();

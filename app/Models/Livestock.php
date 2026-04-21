@@ -147,9 +147,9 @@ class Livestock extends Model
         return $this->hasMany(Service::class, 'female_id');
     }
 
-    public function servicesAsParental(): MorphMany
+    public function servicesAsParentable(): MorphMany
     {
-        return $this->morphMany(Service::class, 'parental');
+        return $this->morphMany(Service::class, 'parentable');
     }
 
     public function growths(): HasMany
@@ -182,9 +182,9 @@ class Livestock extends Model
         return $this->hasMany(Outcome::class);
     }
 
-    public function movementsInLots(): HasMany
+    public function batchMovementHistory(): HasMany
     {
-        return $this->hasMany(MovementInLot::class);
+        return $this->hasMany(BatchMovementHistory::class);
     }
 
     public function revisions(): HasMany
@@ -195,11 +195,6 @@ class Livestock extends Model
     public function teasings(): HasMany
     {
         return $this->hasMany(Teasing::class);
-    }
-
-    public function reproductiveDiagnostics(): HasMany
-    {
-        return $this->hasMany(ReproductiveDiagnostic::class);
     }
 
     public function certificates(): BelongsToMany

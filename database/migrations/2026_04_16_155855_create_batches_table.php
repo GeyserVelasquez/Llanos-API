@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->foreignId('herd_id')->constrained('herds');
+            $table->foreignId('herd_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

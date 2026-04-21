@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('clinic_histories', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->json('attributes')->nullable();
+            $table->foreignId('livestock_id')->constrained('livestock');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
 
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreignId('technique_id')->constrained();
         });
     }
 

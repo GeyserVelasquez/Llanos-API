@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['livestock_id', 'date_at', 'comment', 'result_id', 'revision_type_id', 'technique_id'])]
+#[Fillable(['livestock_id', 'made_at', 'result_id', 'revision_type_id', 'technique_id'])]
 class Revision extends Model
 {
     use SoftDeletes;
@@ -19,7 +19,7 @@ class Revision extends Model
     protected function casts(): array
     {
         return [
-            'date_at' => 'date',
+            'made_at' => 'date',
         ];
     }
 

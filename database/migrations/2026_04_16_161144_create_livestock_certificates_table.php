@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('livestock_certificates', function (Blueprint $table) {
             $table->id();
-
+            $table->foreignId('livestock_id')->constrained('livestock');
             $table->foreignId('certificate_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 

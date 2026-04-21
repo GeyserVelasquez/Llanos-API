@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('teasings', function (Blueprint $table) {
             $table->id();
-            $table->date('date_at');
-            $table->text('comment')->nullable();
+            $table->date('detected_at');
+            $table->text('description')->nullable();
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->foreignId('technique_id')->constrained();
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

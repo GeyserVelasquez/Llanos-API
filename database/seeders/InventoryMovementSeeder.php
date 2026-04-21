@@ -13,14 +13,12 @@ class InventoryMovementSeeder extends Seeder
     public function run(): void
     {
         $productId = DB::table('products')->first()->id;
-        $movementTypeId = DB::table('product_movement_types')->where('code', 'IN')->first()->id;
 
         $movements = [
             [
                 'product_id' => $productId,
-                'product_movement_type_id' => $movementTypeId,
+                'type' => 'income',
                 'made_at' => now(),
-                'quantity' => 100,
                 'attributes' => json_encode(['batch_no' => 'B-2026-001', 'supplier' => 'AgroGlobal']),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -32,13 +30,19 @@ class InventoryMovementSeeder extends Seeder
         }
 
         $supplyId = DB::table('supplies')->first()->id;
-        $characteristics = [
-            ['code' => 'EXP-DATE', 'name' => 'Fecha de Vencimiento', 'supply_id' => $supplyId],
-            ['code' => 'STORAGE', 'name' => 'Condición de Almacenamiento', 'supply_id' => $supplyId],
+        $supplyMovements = [
+            [
+                'supply_id' => $supplyId,
+                'type' => 'income',
+                'made_at' => now(),
+                'attributes' => json_encode(['batch_no' => 'S-2026-001', 'expiry' => '2027-12-31']),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
-        foreach ($characteristics as $char) {
-            DB::table('supply_characteristics')->updateOrInsert(['code' => $char['code']], array_merge($char, ['created_at' => now(), 'updated_at' => now()]));
+        foreach ($supplyMovements as $move) {
+            DB::table('supply_movements')->insert($move);
         }
     }
 }

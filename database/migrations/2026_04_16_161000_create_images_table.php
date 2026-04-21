@@ -15,14 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('path');
-
-            $table->text('comment')->nullable();
-            $table->tinyInteger('is_active');
-            $table->unsignedBigInteger('type_id'); // From diagram line
+            $table->text('description')->nullable();
+            $table->foreignId('livestock_id')->constrained('livestock');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 

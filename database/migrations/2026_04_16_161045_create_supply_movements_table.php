@@ -4,23 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('movements_in_lots', function (Blueprint $table) {
+        Schema::create('supply_movements', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('batch_id')->constrained();
-            $table->date('date');
-            $table->string('raison');
+            $table->foreignId('supply_id')->constrained();
+            $table->enum('type', ['income','outcome','loss']);
+            $table->dateTime('made_at')->useCurrent();
+            $table->json('attributes');
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('movements_in_lots');
+        Schema::dropIfExists('supply_movements');
     }
 };

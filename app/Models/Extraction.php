@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-#[Fillable(['batch_type', 'batch_id', 'technique_id', 'extraction_type_id', 'date', 'comments'])]
+#[Fillable(['batch_type', 'batch_id', 'technique_id', 'extraction_type_id', 'made_at'])]
 class Extraction extends Model
 {
     use SoftDeletes;
@@ -20,7 +20,7 @@ class Extraction extends Model
     protected function casts(): array
     {
         return [
-            'date' => 'date',
+            'made_at' => 'date',
         ];
     }
 

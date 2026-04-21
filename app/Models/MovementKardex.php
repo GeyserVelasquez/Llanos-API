@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\MovementType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['item_id', 'item_type', 'product_movement_type_id', 'quantity', 'event_id', 'event_type', 'date'])]
+#[Fillable(['item_id', 'item_type', 'type', 'quantity', 'event_id', 'event_type', 'date'])]
 class MovementKardex extends Model
 {
     use SoftDeletes;
@@ -19,6 +19,7 @@ class MovementKardex extends Model
     {
         return [
             'date' => 'datetime',
+            'type' => MovementType::class,
         ];
     }
 
@@ -30,10 +31,5 @@ class MovementKardex extends Model
     public function event(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    public function productMovementType(): BelongsTo
-    {
-        return $this->belongsTo(ProductMovementType::class);
     }
 }

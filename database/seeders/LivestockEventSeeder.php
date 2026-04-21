@@ -17,13 +17,14 @@ class LivestockEventSeeder extends Seeder
         $techniqueId = DB::table('techniques')->first()->id;
         $resultId = DB::table('results')->where('code', 'POSITIVE')->first()->id;
         $revisionTypeId = DB::table('revision_types')->where('code', 'GENERAL')->first()->id;
+        $reproRevisionTypeId = DB::table('revision_types')->where('code', 'REPRODUCTIVE')->first()->id;
 
-        // movements_in_lots
-        DB::table('movements_in_lots')->insert([
+        // batch_movement_history
+        DB::table('batch_movement_history')->insert([
             'batch_id' => $batchId,
             'livestock_id' => $livestockId,
-            'date' => now()->toDateString(),
-            'raison' => 'Agrupación por edad',
+            'made_at' => now()->toDateString(),
+            'attributes' => json_encode(['reason' => 'Agrupación por edad']),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -31,8 +32,7 @@ class LivestockEventSeeder extends Seeder
         // revisions
         DB::table('revisions')->insert([
             'livestock_id' => $livestockId,
-            'date_at' => now()->toDateString(),
-            'comment' => 'Revision rutinaria ok',
+            'made_at' => now()->toDateString(),
             'result_id' => $resultId,
             'revision_type_id' => $revisionTypeId,
             'technique_id' => $techniqueId,
@@ -44,21 +44,19 @@ class LivestockEventSeeder extends Seeder
         DB::table('teasings')->insert([
             'livestock_id' => $livestockId,
             'technique_id' => $techniqueId,
-            'date_at' => now()->toDateString(),
-            'comment' => 'Presenta celo',
+            'detected_at' => now()->toDateString(),
+            'description' => 'Presenta celo',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // reproductive_diagnostics
-        DB::table('reproductive_diagnostics')->insert([
+        // reproductive_diagnostics (converted to revision)
+        DB::table('revisions')->insert([
             'livestock_id' => $livestockId,
             'result_id' => $resultId,
-            'date' => now()->toDateString(),
-            'o_izq' => 1,
-            'o_der' => 1,
-            'u_izq' => 0,
-            'u_der' => 0,
+            'made_at' => now()->toDateString(),
+            'revision_type_id' => $reproRevisionTypeId,
+            'technique_id' => $techniqueId,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

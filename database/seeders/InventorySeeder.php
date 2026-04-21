@@ -26,8 +26,8 @@ class InventorySeeder extends Seeder
         $supplyTypeId = DB::table('supply_types')->where('code', 'MEDICINE')->first()->id;
 
         $supplies = [
-            ['code' => 'OXIT-500', 'name' => 'Oxitetraciclina 500mg', 'quantity' => 100, 'is_active' => 1, 'supply_type_id' => $supplyTypeId],
-            ['code' => 'IVEM-1', 'name' => 'Ivermectina 1%', 'quantity' => 50, 'is_active' => 1, 'supply_type_id' => $supplyTypeId],
+            ['code' => 'OXIT-500', 'name' => 'Oxitetraciclina 500mg', 'quantity' => 100, 'supply_type_id' => $supplyTypeId],
+            ['code' => 'IVEM-1', 'name' => 'Ivermectina 1%', 'quantity' => 50, 'supply_type_id' => $supplyTypeId],
         ];
 
         foreach ($supplies as $supply) {
@@ -40,7 +40,7 @@ class InventorySeeder extends Seeder
             [
                 'code' => 'MILK-PREM',
                 'name' => 'Leche Premium',
-                'unit_price' => 0.50,
+                'description' => 'Leche de alta calidad',
                 'attributes' => json_encode(['fat_content' => '3.5%', 'grade' => 'A']),
                 'product_type_id' => $productTypeId
             ],

@@ -9,19 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['name', 'path', 'comment', 'is_active', 'type_id', 'livestock_id'])]
+#[Fillable(['name', 'path', 'description', 'livestock_id'])]
 class Image extends Model
 {
     use SoftDeletes;
-
-
-
-    protected function casts(): array
-    {
-        return [
-            'is_active' => 'integer',
-        ];
-    }
 
     public function livestock(): BelongsTo
     {

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-#[Fillable(['code', 'name', 'date', 'mother_id', 'father_id', 'technique_id'])]
+#[Fillable(['code', 'name', 'mother_id', 'father_id', 'technique_id'])]
 class EmbrionBatch extends Model
 {
     use SoftDeletes;

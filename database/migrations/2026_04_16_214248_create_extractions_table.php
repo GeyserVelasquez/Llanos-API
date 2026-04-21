@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('extractions', function (Blueprint $table) {
             $table->id();
             $table->morphs('batch');
-            $table->foreignId('technique_id')->nullable()->constrained('techniques')->nullOnDelete();
+            $table->date('made_at');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('extraction_type_id')->constrained('extraction_types')->nullOnDelete();
-            $table->date('date');
-            $table->text('comments')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

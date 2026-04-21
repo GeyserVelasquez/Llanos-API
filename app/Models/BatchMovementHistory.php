@@ -9,21 +9,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['birth_id', 'newborn_type_id', 'livestock_id'])]
-class Newborn extends Model
+#[Fillable(['batch_id', 'made_at', 'attributes', 'livestock_id'])]
+class BatchMovementHistory extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'batch_movement_history';
 
-
-    public function birth(): BelongsTo
+    protected function casts(): array
     {
-        return $this->belongsTo(Birth::class);
+        return [
+            'made_at' => 'date',
+            'attributes' => 'json'
+        ];
     }
 
-    public function newbornType(): BelongsTo
+    public function batch(): BelongsTo
     {
-        return $this->belongsTo(NewbornType::class);
+        return $this->belongsTo(Batch::class);
     }
 
     public function livestock(): BelongsTo

@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
-    'date', 'milking_type_id', 'morning_weight', 'afternoon_weight',
-    'total_weight', 'mother_history_id', 'is_active', 'livestock_id'
+    'made_at', 'milking_type_id', 'first_weight', 'second_weight',
+    'third_weight', 'livestock_id'
 ])]
 class Milking extends Model
 {
@@ -22,19 +22,13 @@ class Milking extends Model
     protected function casts(): array
     {
         return [
-            'date' => 'date',
-            'is_active' => 'integer',
+            'made_at' => 'date',
         ];
     }
 
     public function milkingType(): BelongsTo
     {
         return $this->belongsTo(MilkingType::class);
-    }
-
-    public function motherHistory(): BelongsTo
-    {
-        return $this->belongsTo(ClinicHistory::class, 'mother_history_id');
     }
 
     public function livestock(): BelongsTo

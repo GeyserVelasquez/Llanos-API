@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('supply_characteristics', function (Blueprint $table) {
+        Schema::create('batch_movement_history', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('name');
-            $table->foreignId('supply_id')->constrained();
+            $table->foreignId('batch_id')->constrained();
+            $table->foreignId('livestock_id')->constrained('livestock');
+            $table->date('made_at');
+            $table->json('attributes');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('supply_characteristics');
+        Schema::dropIfExists('batch_movement_history');
     }
 };

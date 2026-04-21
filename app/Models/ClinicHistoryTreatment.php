@@ -14,8 +14,6 @@ class ClinicHistoryTreatment extends Model
 {
     use SoftDeletes;
 
-
-
     public function clinicHistory(): BelongsTo
     {
         return $this->belongsTo(ClinicHistory::class);

@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('revisions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->date('date_at');
-            $table->text('comment')->nullable();
+            $table->date('made_at');
             $table->foreignId('result_id')->constrained('results');
             $table->foreignId('revision_type_id')->constrained('revision_types');
-            $table->foreignId('technique_id')->constrained('techniques');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
 
