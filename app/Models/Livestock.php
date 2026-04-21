@@ -182,9 +182,9 @@ class Livestock extends Model
         return $this->hasMany(Outcome::class);
     }
 
-    public function batchMovementHistory(): HasMany
+    public function batchMovements(): HasMany
     {
-        return $this->hasMany(BatchMovementHistory::class);
+        return $this->hasMany(BatchMovement::class);
     }
 
     public function revisions(): HasMany

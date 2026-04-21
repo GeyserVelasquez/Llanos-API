@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batch_movement_history', function (Blueprint $table) {
+        Schema::create('batch_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('batch_id')->constrained();
             $table->foreignId('livestock_id')->constrained('livestock');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batch_movement_history');
+        Schema::dropIfExists('batch_movements');
     }
 };

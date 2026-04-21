@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Owner;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PeopleSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class PeopleSeeder extends Seeder
         ];
 
         foreach ($owners as $owner) {
-            DB::table('owners')->updateOrInsert(['code' => $owner['code']], array_merge($owner, ['created_at' => now(), 'updated_at' => now()]));
+            Owner::updateOrCreate(['code' => $owner['code']], $owner);
         }
     }
 }

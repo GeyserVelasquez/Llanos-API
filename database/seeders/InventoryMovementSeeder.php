@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\MovementType;
+use App\Models\Product;
+use App\Models\ProductMovement;
+use App\Models\Supply;
+use App\Models\SupplyMovement;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class InventoryMovementSeeder extends Seeder
 {
@@ -12,37 +16,33 @@ class InventoryMovementSeeder extends Seeder
      */
     public function run(): void
     {
-        $productId = DB::table('products')->first()->id;
+        $product = Product::first();
 
-        $movements = [
+        $productMovements = [
             [
-                'product_id' => $productId,
-                'type' => 'income',
+                'product_id' => $product->id,
+                'type' => MovementType::INCOME,
                 'made_at' => now(),
-                'attributes' => json_encode(['batch_no' => 'B-2026-001', 'supplier' => 'AgroGlobal']),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'attributes' => ['batch_no' => 'B-2026-001', 'supplier' => 'AgroGlobal'],
             ],
         ];
 
-        foreach ($movements as $movement) {
-            DB::table('product_movements')->insert($movement);
+        foreach ($productMovements as $movement) {
+            ProductMovement::create($movement);
         }
 
-        $supplyId = DB::table('supplies')->first()->id;
+        $supply = Supply::first();
         $supplyMovements = [
             [
-                'supply_id' => $supplyId,
-                'type' => 'income',
+                'supply_id' => $supply->id,
+                'type' => MovementType::INCOME,
                 'made_at' => now(),
-                'attributes' => json_encode(['batch_no' => 'S-2026-001', 'expiry' => '2027-12-31']),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'attributes' => ['batch_no' => 'S-2026-001', 'expiry' => '2027-12-31'],
             ],
         ];
 
         foreach ($supplyMovements as $move) {
-            DB::table('supply_movements')->insert($move);
+            SupplyMovement::create($move);
         }
     }
 }

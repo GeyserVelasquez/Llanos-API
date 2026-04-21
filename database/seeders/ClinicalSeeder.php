@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClinicalTreatment;
+use App\Models\ClinicDiagnostic;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ClinicalSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class ClinicalSeeder extends Seeder
         ];
 
         foreach ($diagnostics as $diag) {
-            DB::table('clinic_diagnostics')->updateOrInsert(['code' => $diag['code']], array_merge($diag, ['created_at' => now(), 'updated_at' => now()]));
+            ClinicDiagnostic::updateOrCreate(['code' => $diag['code']], $diag);
         }
 
         $treatments = [
@@ -31,7 +32,7 @@ class ClinicalSeeder extends Seeder
         ];
 
         foreach ($treatments as $treat) {
-            DB::table('clinical_treatments')->updateOrInsert(['code' => $treat['code']], array_merge($treat, ['created_at' => now(), 'updated_at' => now()]));
+            ClinicalTreatment::updateOrCreate(['code' => $treat['code']], $treat);
         }
     }
 }

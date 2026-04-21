@@ -2,8 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Batch;
+use App\Models\Herd;
+use App\Models\Product;
+use App\Models\ProductType;
+use App\Models\Supply;
+use App\Models\SupplyType;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class InventorySeeder extends Seeder
 {
@@ -12,42 +17,42 @@ class InventorySeeder extends Seeder
      */
     public function run(): void
     {
-        $herdId = DB::table('herds')->first()->id;
+        $herd = Herd::first();
 
         $batches = [
-            ['code' => 'BATCH-001', 'name' => 'Lote de Engorde 1', 'herd_id' => $herdId],
-            ['code' => 'BATCH-002', 'name' => 'Lote de Cría A', 'herd_id' => $herdId],
+            ['code' => 'BATCH-001', 'name' => 'Lote de Engorde 1', 'herd_id' => $herd->id],
+            ['code' => 'BATCH-002', 'name' => 'Lote de Cría A', 'herd_id' => $herd->id],
         ];
 
         foreach ($batches as $batch) {
-            DB::table('batches')->updateOrInsert(['code' => $batch['code']], array_merge($batch, ['created_at' => now(), 'updated_at' => now()]));
+            Batch::updateOrCreate(['code' => $batch['code']], $batch);
         }
 
-        $supplyTypeId = DB::table('supply_types')->where('code', 'MEDICINE')->first()->id;
+        $supplyType = SupplyType::where('code', 'MEDICINE')->first();
 
         $supplies = [
-            ['code' => 'OXIT-500', 'name' => 'Oxitetraciclina 500mg', 'quantity' => 100, 'supply_type_id' => $supplyTypeId],
-            ['code' => 'IVEM-1', 'name' => 'Ivermectina 1%', 'quantity' => 50, 'supply_type_id' => $supplyTypeId],
+            ['code' => 'OXIT-500', 'name' => 'Oxitetraciclina 500mg', 'quantity' => 100, 'supply_type_id' => $supplyType->id],
+            ['code' => 'IVEM-1', 'name' => 'Ivermectina 1%', 'quantity' => 50, 'supply_type_id' => $supplyType->id],
         ];
 
         foreach ($supplies as $supply) {
-            DB::table('supplies')->updateOrInsert(['code' => $supply['code']], array_merge($supply, ['created_at' => now(), 'updated_at' => now()]));
+            Supply::updateOrCreate(['code' => $supply['code']], $supply);
         }
 
-        $productTypeId = DB::table('product_types')->where('code', 'MILK')->first()->id;
+        $productType = ProductType::where('code', 'MILK')->first();
 
         $products = [
             [
                 'code' => 'MILK-PREM',
                 'name' => 'Leche Premium',
                 'description' => 'Leche de alta calidad',
-                'attributes' => json_encode(['fat_content' => '3.5%', 'grade' => 'A']),
-                'product_type_id' => $productTypeId
+                'attributes' => ['fat_content' => '3.5%', 'grade' => 'A'],
+                'product_type_id' => $productType->id
             ],
         ];
 
         foreach ($products as $product) {
-            DB::table('products')->updateOrInsert(['code' => $product['code']], array_merge($product, ['created_at' => now(), 'updated_at' => now()]));
+            Product::updateOrCreate(['code' => $product['code']], $product);
         }
     }
 }

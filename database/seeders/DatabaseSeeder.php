@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Administrator',
             'email' => 'admin@llanos.com',
-//            'password' => Hash::make('password')
         ]);
     }
 }

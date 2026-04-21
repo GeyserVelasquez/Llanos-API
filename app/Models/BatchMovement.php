@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(['batch_id', 'made_at', 'attributes', 'livestock_id'])]
-class BatchMovementHistory extends Model
+class BatchMovement extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'batch_movement_history';
+    protected $table = 'batch_movements';
 
     protected function casts(): array
     {

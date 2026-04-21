@@ -2,8 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Models\Batch;
+use App\Models\BatchMovement;
+use App\Models\Livestock;
+use App\Models\Result;
+use App\Models\Revision;
+use App\Models\RevisionType;
+use App\Models\Teasing;
+use App\Models\Technique;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class LivestockEventSeeder extends Seeder
 {
@@ -12,53 +19,45 @@ class LivestockEventSeeder extends Seeder
      */
     public function run(): void
     {
-        $livestockId = DB::table('livestock')->first()->id;
-        $batchId = DB::table('batches')->first()->id;
-        $techniqueId = DB::table('techniques')->first()->id;
-        $resultId = DB::table('results')->where('code', 'POSITIVE')->first()->id;
-        $revisionTypeId = DB::table('revision_types')->where('code', 'GENERAL')->first()->id;
-        $reproRevisionTypeId = DB::table('revision_types')->where('code', 'REPRODUCTIVE')->first()->id;
+        $livestock = Livestock::first();
+        $batch = Batch::first();
+        $technique = Technique::first();
+        $result = Result::where('code', 'POSITIVE')->first();
+        $revisionType = RevisionType::where('code', 'GENERAL')->first();
+        $reproRevisionType = RevisionType::where('code', 'REPRODUCTIVE')->first();
 
-        // batch_movement_history
-        DB::table('batch_movement_history')->insert([
-            'batch_id' => $batchId,
-            'livestock_id' => $livestockId,
-            'made_at' => now()->toDateString(),
-            'attributes' => json_encode(['reason' => 'Agrupación por edad']),
-            'created_at' => now(),
-            'updated_at' => now(),
+        // batch_movements
+        BatchMovement::create([
+            'batch_id' => $batch->id,
+            'livestock_id' => $livestock->id,
+            'made_at' => now(),
+            'attributes' => ['reason' => 'Agrupación por edad'],
         ]);
 
         // revisions
-        DB::table('revisions')->insert([
-            'livestock_id' => $livestockId,
-            'made_at' => now()->toDateString(),
-            'result_id' => $resultId,
-            'revision_type_id' => $revisionTypeId,
-            'technique_id' => $techniqueId,
-            'created_at' => now(),
-            'updated_at' => now(),
+        Revision::create([
+            'livestock_id' => $livestock->id,
+            'made_at' => now(),
+            'result_id' => $result->id,
+            'revision_type_id' => $revisionType->id,
+            'technique_id' => $technique->id,
         ]);
 
         // teasings
-        DB::table('teasings')->insert([
-            'livestock_id' => $livestockId,
-            'technique_id' => $techniqueId,
-            'detected_at' => now()->toDateString(),
+        Teasing::create([
+            'livestock_id' => $livestock->id,
+            'technique_id' => $technique->id,
+            'detected_at' => now(),
             'description' => 'Presenta celo',
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         // reproductive_diagnostics (converted to revision)
-        DB::table('revisions')->insert([
-            'livestock_id' => $livestockId,
-            'result_id' => $resultId,
-            'made_at' => now()->toDateString(),
-            'revision_type_id' => $reproRevisionTypeId,
-            'technique_id' => $techniqueId,
-            'created_at' => now(),
-            'updated_at' => now(),
+        Revision::create([
+            'livestock_id' => $livestock->id,
+            'result_id' => $result->id,
+            'made_at' => now(),
+            'revision_type_id' => $reproRevisionType->id,
+            'technique_id' => $technique->id,
         ]);
     }
 }
