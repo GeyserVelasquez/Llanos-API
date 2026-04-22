@@ -14,9 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 #[Fillable(['code', 'name', 'herd_id'])]
 class Batch extends Model
 {
-    use SoftDeletes;
-
-
+    use SoftDeletes, HasFactory;
 
     public function herd(): BelongsTo
     {
@@ -28,9 +26,9 @@ class Batch extends Model
         return $this->hasMany(Livestock::class);
     }
 
-    public function movementsInLots(): HasMany
+    public function batchMovement(): HasMany
     {
-        return $this->hasMany(MovementInLot::class);
+        return $this->hasMany(BatchMovement::class);
     }
 
     public function extractions(): MorphMany

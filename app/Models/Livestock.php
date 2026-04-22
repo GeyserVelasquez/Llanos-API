@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AnimalCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,14 +16,14 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 #[Fillable([
     'brand_number', 'electronic_code', 'name', 'entry_date', 'birth_date',
     'general_comment', 'tits', 'is_enabled', 'is_alive', 'entry_cause_id',
-    'state_id', 'animal_category_id', 'breed_id', 'color_id', 'classification_id',
+    'state_id', 'animal_category', 'breed_id', 'color_id', 'classification_id',
     'owner_id', 'technique_id', 'batch_id', 'father_id', 'mother_id',
     'adoptive_mother_id', 'receiving_mother_id'
 ])]
+
 class Livestock extends Model
 {
-    use SoftDeletes;
-
+    use SoftDeletes, HasFactory;
 
 
     protected $table = 'livestock';
@@ -34,6 +35,7 @@ class Livestock extends Model
             'birth_date' => 'date',
             'is_enabled' => 'boolean',
             'is_alive' => 'boolean',
+            'animal_category' => AnimalCategory::class,
         ];
     }
 
@@ -45,11 +47,6 @@ class Livestock extends Model
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
-    }
-
-    public function animalCategory(): BelongsTo
-    {
-        return $this->belongsTo(AnimalCategory::class);
     }
 
     public function breed(): BelongsTo

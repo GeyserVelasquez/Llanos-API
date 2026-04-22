@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['code', 'name', 'telephone'])]
 class Owner extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
 
