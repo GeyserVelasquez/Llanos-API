@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Breed;
+use App\Models\Batch;
+use App\Models\Herd;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Breed>
+ * @extends Factory<Batch>
  */
-class BreedFactory extends Factory
+class BatchFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +18,10 @@ class BreedFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->unique()->word();
-        $code = mb_strtoupper(mb_substr($name, 0, 2));
-
         return [
-            'code' => $code,
-            'name' => $name,
+            'code' => $this->faker->unique()->bothify('BAT-??-####'),
+            'name' => $this->faker->word(),
+            'herd_id' => Herd::factory(),
         ];
     }
 }

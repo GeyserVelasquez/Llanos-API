@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Breed;
+use App\Models\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Breed>
+ * @extends Factory<Owner>
  */
-class BreedFactory extends Factory
+class OwnerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,10 @@ class BreedFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->unique()->word();
-        $code = mb_strtoupper(mb_substr($name, 0, 2));
-
         return [
-            'code' => $code,
-            'name' => $name,
+            'code' => $this->faker->unique()->bothify('V-##.###.###'),
+            'name' => $this->faker->name(),
+            'telephone' => $this->faker->phoneNumber(),
         ];
     }
 }
