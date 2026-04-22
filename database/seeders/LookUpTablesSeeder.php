@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\AbortType;
-use App\Models\AnimalCategory;
 use App\Models\BirthType;
 use App\Models\Breed;
 use App\Models\Classification;
@@ -50,15 +49,6 @@ class LookUpTablesSeeder extends Seeder
                 ['code' => 'GOOD', 'name' => 'Bueno'],
                 ['code' => 'REGULAR', 'name' => 'Regular'],
                 ['code' => 'BAD', 'name' => 'Malo'],
-            ],
-            AnimalCategory::class => [
-                ['code' => 'BULL', 'name' => 'Toro'],
-                ['code' => 'COW', 'name' => 'Vaca'],
-                ['code' => 'CALF', 'name' => 'Ternero'],
-                ['code' => 'HEIFER', 'name' => 'Novilla'],
-                ['code' => 'STEER', 'name' => 'Novillo'],
-                ['code' => 'MALECALF', 'name' => 'Becerro'],
-                ['code' => 'FEMALECALF', 'name' => 'Becerra'],
             ],
             Color::class => [
                 ['code' => 'WHITE', 'name' => 'Blanco'],

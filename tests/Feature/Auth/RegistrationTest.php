@@ -8,7 +8,6 @@ use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
 
     public function test_guest_cannot_register_new_user(): void
     {

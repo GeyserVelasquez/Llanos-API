@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class ProductMovementTypeTest extends TestCase
 {
-    use RefreshDatabase;
 
     protected User $user;
 

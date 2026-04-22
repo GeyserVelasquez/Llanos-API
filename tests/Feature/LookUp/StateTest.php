@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class StateTest extends TestCase
 {
-    use RefreshDatabase;
 
     protected User $user;
 

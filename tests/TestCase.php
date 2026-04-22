@@ -2,11 +2,13 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
 
 abstract class TestCase extends BaseTestCase
 {
+    use refreshDatabase;
     protected string $apiPrefix = '/api/v1';
 
     protected function setUp(): void

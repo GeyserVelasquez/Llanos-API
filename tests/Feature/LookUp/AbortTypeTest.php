@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class AbortTypeTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
 
     protected function setUp(): void
@@ -169,3 +167,4 @@ class AbortTypeTest extends TestCase
         $response->assertStatus(404);
     }
 }
+

@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class ClassificationTest extends TestCase
 {
-    use RefreshDatabase;
 
     protected User $user;
 
