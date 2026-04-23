@@ -36,8 +36,6 @@ return new class extends Migration
             $table->foreignId('owner_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
 
-            $table->foreignId('batch_id')->nullable()->constrained()->nullOnDelete();
-
             $table->foreignId('father_id')->nullable()->constrained('livestock')->nullOnDelete();
             $table->foreignId('mother_id')->nullable()->constrained('livestock')->nullOnDelete();
             $table->foreignId('adoptive_mother_id')->nullable()->constrained('livestock')->nullOnDelete();

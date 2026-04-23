@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\AnimalCategory;
+use App\Enums\AnimalCategory;
 use App\Models\Batch;
 use App\Models\Breed;
 use App\Models\Classification;
@@ -23,44 +23,40 @@ class LivestockSeeder extends Seeder
     {
         $entryCause = EntryCause::where('code', 'BORN')->first();
         $state = State::where('code', 'HEALTHY')->first();
-        $animalCategory = AnimalCategory::where('code', 'COW')->first();
         $breed = Breed::where('code', 'HOLSTEIN')->first();
         $color = Color::where('code', 'WHITE')->first();
         $classification = Classification::where('code', 'GOOD')->first();
         $owner = Owner::first();
         $technique = Technique::first();
-        $batch = Batch::first();
 
         $animals = [
             [
-                'brand_number' => 'A-001',
+                'brand_number' => '1001',
                 'name' => 'Lola',
                 'entry_date' => now(),
                 'birth_date' => now()->subYears(3),
                 'entry_cause_id' => $entryCause->id,
                 'state_id' => $state->id,
-                'animal_category_id' => $animalCategory->id,
+                'animal_category' => AnimalCategory::COW,
                 'breed_id' => $breed->id,
                 'color_id' => $color->id,
                 'classification_id' => $classification->id,
                 'owner_id' => $owner->id,
                 'technique_id' => $technique->id,
-                'batch_id' => $batch->id,
             ],
             [
-                'brand_number' => 'A-002',
+                'brand_number' => '1002',
                 'name' => 'Clarabella',
                 'entry_date' => now(),
                 'birth_date' => now()->subYears(2),
                 'entry_cause_id' => $entryCause->id,
                 'state_id' => $state->id,
-                'animal_category_id' => $animalCategory->id,
+                'animal_category' => AnimalCategory::HEIFER,
                 'breed_id' => $breed->id,
                 'color_id' => $color->id,
                 'classification_id' => $classification->id,
                 'owner_id' => $owner->id,
                 'technique_id' => $technique->id,
-                'batch_id' => $batch->id,
             ],
         ];
 

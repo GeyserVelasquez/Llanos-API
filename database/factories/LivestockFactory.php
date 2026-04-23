@@ -33,7 +33,7 @@ class LivestockFactory extends Factory
         $entryDate = $this->faker->dateTimeBetween($birthDate, 'now');
 
         return [
-            'brand_number' => $this->faker->unique()->numberBetween(1000, 9999),
+            'brand_number' => (string) $this->faker->unique()->numberBetween(1000, 9999),
             'electronic_code' => $this->faker->unique()->ean13(),
             'name' => $name,
             'entry_date' => $entryDate->format('Y-m-d'),
@@ -50,7 +50,6 @@ class LivestockFactory extends Factory
             'classification_id' => Classification::factory(),
             'owner_id' => Owner::factory(),
             'technique_id' => Technique::factory(),
-            'batch_id' => Batch::factory(),
             'father_id' => null,
             'mother_id' => null,
             'adoptive_mother_id' => null,
