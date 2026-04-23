@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,9 +22,14 @@ class Batch extends Model
         return $this->belongsTo(Herd::class);
     }
 
-    public function livestock(): HasMany
+    public function livestock(): BelongsToMany
     {
-        return $this->hasMany(Livestock::class);
+        return $this->belongsToMany(Livestock::class);
+    }
+
+    public function batchMovements(): BelongsTo
+    {
+        return $this->belongsTo(BatchMovement::class);
     }
 
     public function batchMovement(): HasMany

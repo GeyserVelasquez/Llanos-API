@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
     'brand_number', 'electronic_code', 'name', 'entry_date', 'birth_date',
     'general_comment', 'tits', 'is_enabled', 'is_alive', 'entry_cause_id',
     'state_id', 'animal_category', 'breed_id', 'color_id', 'classification_id',
-    'owner_id', 'technique_id', 'batch_id', 'father_id', 'mother_id',
+    'owner_id', 'technique_id', 'father_id', 'mother_id',
     'adoptive_mother_id', 'receiving_mother_id'
 ])]
 
@@ -179,11 +180,6 @@ class Livestock extends Model
         return $this->hasMany(Outcome::class);
     }
 
-    public function batchMovements(): HasMany
-    {
-        return $this->hasMany(BatchMovement::class);
-    }
-
     public function revisions(): HasMany
     {
         return $this->hasMany(Revision::class);
@@ -202,5 +198,21 @@ class Livestock extends Model
     public function products(): MorphMany
     {
         return $this->morphMany(Product::class, 'origin');
+    }
+
+    public function batchMovements(): HasMany
+    {
+        return $this->hasMany(BatchMovement::class);
+    }
+
+    public function currentBatchMovement(): HasOne
+    {
+        return $this->hasOne(BatchMovement::class)->latestOfMany();
+    }
+
+    public function batches(): BelongsToMany
+    {
+        return $this->belongsToMany(Batch::class, 'batch_movements')
+            ->withTimestamps();
     }
 }
