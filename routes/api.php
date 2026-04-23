@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\LivestockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbortTypeController;
-use App\Http\Controllers\AnimalCategoryController;
 use App\Http\Controllers\BirthTypeController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ClassificationController;
@@ -16,6 +16,7 @@ use App\Http\Controllers\HerdController;
 use App\Http\Controllers\MilkingTypeController;
 use App\Http\Controllers\NewbornTypeController;
 use App\Http\Controllers\OutcomeTypeController;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProductMovementTypeController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ResultController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\RevisionTypeController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\SupplyTypeController;
+use App\Http\Controllers\TechniqueController;
 
 require __DIR__.'/auth.php';
 
@@ -33,7 +35,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::apiResource('abort-types', AbortTypeController::class);
-    Route::apiResource('animal-categories', AnimalCategoryController::class);
     Route::apiResource('birth-types', BirthTypeController::class);
     Route::apiResource('breeds', BreedController::class);
     Route::apiResource('classifications', ClassificationController::class);
@@ -44,8 +45,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('growth-types', GrowthTypeController::class);
     Route::apiResource('herds', HerdController::class);
     Route::apiResource('milking-types', MilkingTypeController::class);
+    Route::apiResource('livestock', LivestockController::class);
     Route::apiResource('newborn-types', NewbornTypeController::class);
     Route::apiResource('outcome-types', OutcomeTypeController::class);
+    Route::apiResource('owners', OwnerController::class);
     Route::apiResource('product-movement-types', ProductMovementTypeController::class);
     Route::apiResource('product-types', ProductTypeController::class);
     Route::apiResource('results', ResultController::class);
@@ -53,4 +56,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('service-types', ServiceTypeController::class);
     Route::apiResource('states', StateController::class);
     Route::apiResource('supply-types', SupplyTypeController::class);
+    Route::apiResource('techniques', TechniqueController::class);
+
 });
