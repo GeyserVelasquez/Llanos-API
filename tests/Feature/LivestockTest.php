@@ -31,7 +31,7 @@ class LivestockTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_users_can_get_a_list_of_breeds(): void
+    public function test_users_can_get_a_list_of_livestock(): void
     {
 
         $livestock = Livestock::factory(3)->create();
@@ -80,7 +80,7 @@ class LivestockTest extends TestCase
         ]);
     }
 
-    public function test_users_can_get_a_single_breed(): void
+    public function test_users_can_get_a_single_livestock(): void
     {
         $livestock = Livestock::factory()->create();
 
@@ -125,9 +125,9 @@ class LivestockTest extends TestCase
 
     }
 
-    public function test_users_can_create_a_new_breed(): void
+    public function test_users_can_create_a_new_livestock(): void
     {
-        $payload = LivestockFactory::raw();
+        $payload = Livestock::factory()->raw();
 
         $route = route('livestock.store');
 
@@ -138,6 +138,123 @@ class LivestockTest extends TestCase
 
         $this->assertDatabaseHas('livestock', [
             'brand_number' => $payload['brand_number'],
+        ]);
+    }
+
+    public function test_users_cannot_create_a_new_livestock_with_missing_parameters(): void
+    {
+        $payload = Livestock::factory()->raw();
+
+        $payload['brand_number'] = null;
+
+        $route = route('livestock.store');
+
+        $response = $this->actingAs($this->user)
+            ->postJson($route, $payload);
+
+        $response->assertStatus(422);
+
+        $this->assertDatabaseMissing('livestock', [
+            'name' => $payload['name'],
+        ]);
+    }
+
+    public function test_users_cannot_create_a_new_livestock_with_duplicated_brand_number(): void
+    {
+        $alredyStoredLivestock = Livestock::factory()->create();
+
+        $payloadWithDuplicatedBrandNumber = Livestock::factory(['brand_number' => $alredyStoredLivestock->brand_number])->raw();
+
+        $route = route('livestock.store');
+
+        $response = $this->actingAs($this->user)
+            ->postJson($route, $payloadWithDuplicatedBrandNumber);
+
+        $response->assertStatus(422);
+
+        $this->assertDatabaseMissing('livestock', [
+            'name' => $payloadWithDuplicatedBrandNumber['name'],
+        ]);
+    }
+
+    public function test_users_can_create_a_new_livestock_with_pedigree(): void
+    {
+        $pedigreeLevel = 3;
+        $livestockCountInDatabase = (2**($pedigreeLevel+1)-1);
+
+        $payload = Livestock::factory()->withPedigree($pedigreeLevel)->make()->toArray();
+
+        $postRoute = route('livestock.store');
+
+        $postResponse = $this->actingAs($this->user)
+            ->postJson($postRoute, $payload);
+
+        $postResponse->assertStatus(201);
+
+        $this->assertDatabaseHas('livestock', [
+            'brand_number' => $payload['brand_number'],
+        ]);
+
+        $getRoute = route('livestock.index');
+
+        $getResponse = $this->actingAs($this->user)
+            ->getJson($getRoute);
+
+        $getResponse->assertStatus(200);
+
+        $getResponse->assertJsonCount($livestockCountInDatabase, 'data');
+
+
+    }
+
+    public function test_users_can_update_a_livestock(): void
+    {
+        $livestock = Livestock::factory()->create();
+
+        $payload = $livestock->make(['brand_number' => '0001'])->toArray();
+
+        $route = route('livestock.update', $livestock);
+
+        $response = $this->actingAs($this->user)
+            ->putJson($route, $payload);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('livestock', [
+            'brand_number' => $payload['brand_number'],
+        ]);
+    }
+
+    public function test_users_can_delete_a_livestock(): void
+    {
+        $livestock = Livestock::factory()->create();
+
+        $route = route('livestock.destroy', $livestock);
+
+        $response = $this->actingAs($this->user)
+            ->deleteJson($route);
+
+        $response->assertStatus(204);
+
+        $this->assertSoftDeleted($livestock);
+    }
+
+    public function test_users_cannot_create_a_new_male_livestock_with_tits(): void
+    {
+        $payload = Livestock::factory()->asBull()->raw();
+
+        $payload['tits'] = '4';
+
+        $route = route('livestock.store');
+
+        $response = $this->actingAs($this->user)
+            ->postJson($route, $payload);
+
+        $response->assertStatus(201);
+
+        $this->assertDatabaseMissing('livestock', [
+            'brand_number' => $payload['brand_number'],
+            'tits' => $payload['tits']
         ]);
     }
 

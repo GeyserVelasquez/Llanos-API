@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Enums\AnimalCategory;
+use App\Observers\LivestockObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -21,11 +22,10 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
     'owner_id', 'technique_id', 'father_id', 'mother_id',
     'adoptive_mother_id', 'receiving_mother_id'
 ])]
-
+#[ObservedBy([LivestockObserver::class])]
 class Livestock extends Model
 {
     use SoftDeletes, HasFactory;
-
 
     protected $table = 'livestock';
 

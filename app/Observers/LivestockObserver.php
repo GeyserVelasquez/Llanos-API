@@ -3,15 +3,36 @@
 namespace App\Observers;
 
 use App\Models\Livestock;
+use App\Sanitizers\LivestockSanitizer;
+use App\Validators\LivestockValidator;
 
 class LivestockObserver
 {
+    public function __construct(
+        private LivestockSanitizer $sanitizer,
+        private LivestockValidator $validator
+    ) {}
+
+    /**
+     * Handle the Livestock "saving" event.
+     */
+    public function saving(Livestock $livestock): void
+    {
+        $this->sanitizer->sanitize($livestock);
+
+        $this->validator->validate($livestock);
+    }
+
     /**
      * Handle the Livestock "created" event.
      */
     public function created(Livestock $livestock): void
     {
-        //
+        $sanitizer = new LivestockSanitizer();
+        $validator = new LivestockValidator();
+
+        $sanitizer->sanitize($livestock);
+        $validator->validate($livestock);
     }
 
     /**

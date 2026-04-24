@@ -8,7 +8,7 @@ class LivestockSanitizer extends Sanitizer
 {
 
     /**
-     * Create a new class instance.
+     * Utility Class to sanitize Models' attributes.
      */
     public function __construct()
     {
@@ -24,7 +24,7 @@ class LivestockSanitizer extends Sanitizer
 
     private function sanitizeTitsValueByAnimalCategory(Livestock $livestock): void
     {
-        if ($livestock->animal_category) {
+        if (!$livestock->animal_category) {
             return;
         }
 
@@ -33,7 +33,7 @@ class LivestockSanitizer extends Sanitizer
         }
     }
 
-    public function capitalizeLivestockName(Livestock $livestock): void
+    private function capitalizeLivestockName(Livestock $livestock): void
     {
         if ($livestock->name) {
             $livestock->name = ucfirst(strtolower($livestock->name));
