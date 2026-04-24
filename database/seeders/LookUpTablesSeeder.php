@@ -100,10 +100,6 @@ class LookUpTablesSeeder extends Seeder
                 ['code' => 'CLINICAL', 'name' => 'Clínica'],
                 ['code' => 'POST-MORTEM', 'name' => 'Post-mortem'],
             ],
-            EmbrionExtractionType::class => [
-                ['code' => 'SURGICAL', 'name' => 'Quirúrgica'],
-                ['code' => 'NON-SURGICAL', 'name' => 'No Quirúrgica'],
-            ],
             MilkingType::class => [
                 ['code' => 'MANUAL', 'name' => 'Manual'],
                 ['code' => 'MECHANICAL', 'name' => 'Mecánica'],
@@ -136,6 +132,8 @@ class LookUpTablesSeeder extends Seeder
             ExtractionType::class => [
                 ['code' => 'ASPIR', 'name' => 'Aspiracion'],
                 ['code' => 'RECOL', 'name' => 'Recolleción'],
+                ['code' => 'SURGICAL', 'name' => 'Quirúrgica'],
+                ['code' => 'NON-SURGICAL', 'name' => 'No Quirúrgica'],
             ],
             Herd::class => [
                 ['code' => 'MAIN', 'name' => 'Hato Principal'],
