@@ -13,6 +13,7 @@ use App\Models\Owner;
 use App\Models\State;
 use App\Models\Technique;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 /**
  * @extends Factory<Livestock>
@@ -90,7 +91,7 @@ class LivestockFactory extends Factory
      * Caution: Database record insertion grows exponentially at a rate of
      * 2^(n+1) - 1.
      *
-     * @param  int  $levels
+     * @param  int  $level
      * @return static
      */
     public function withPedigree(int $level = 1): static
@@ -100,8 +101,35 @@ class LivestockFactory extends Factory
         }
 
         return $this->state(fn (array $attributes) => [
-            'father_id' => Livestock::factory()->asBull()->withPedigree($level - 1),
-            'mother_id' => Livestock::factory()->asCow()->withPedigree($level - 1),
+            'father_id' => $this->generateParent($attributes, $level)->asBull(),
+            'mother_id' => $this->generateParent($attributes, $level)->asCow(),
         ]);
+    }
+
+    /**
+     * Generates a parent factory with proper age constraints.
+     */
+    protected function generateParent(array $childAttributes, int $currentLevel): self
+    {
+        $childBirthdate = $childAttributes['birth_date'] ?? now();
+
+        return static::new()
+            ->state([
+                'birth_date' => $this->generateParentBirthDate($childBirthdate),
+            ])
+            ->withPedigree($currentLevel - 1);
+    }
+
+    /**
+     * Generates a realistic birth_date for a parent based on the child's birth_date.
+     */
+    protected function generateParentBirthDate($childBirthDate): string
+    {
+        $childBirthDate = Carbon::parse($childBirthDate);
+
+        return $this->faker->dateTimeBetween(
+            (clone $childBirthDate)->subYears(12),
+            (clone $childBirthDate)->subYears(2)
+        )->format('Y-m-d');
     }
 }
