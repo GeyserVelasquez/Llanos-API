@@ -1,8 +1,7 @@
 <?php
 
-namespace LookUp;
+namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AppTest extends TestCase

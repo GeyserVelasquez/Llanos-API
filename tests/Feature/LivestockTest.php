@@ -211,7 +211,7 @@ class LivestockTest extends TestCase
     {
         $livestock = Livestock::factory()->create();
 
-        $payload = $livestock->make(['brand_number' => '0001'])->toArray();
+        $payload = $livestock->make(['brand_number' => '0416'])->toArray();
 
         $route = route('livestock.update', $livestock);
 
@@ -255,6 +255,45 @@ class LivestockTest extends TestCase
         $this->assertDatabaseMissing('livestock', [
             'brand_number' => $payload['brand_number'],
             'tits' => $payload['tits']
+        ]);
+    }
+
+    public function test_unauthenticated_users_cannot_access_breeds_endpoints(): void
+    {
+        $livestock = Livestock::factory()->create();
+
+        $routeIndex = route('livestock.index');
+        $responseIndex = $this->getJson($routeIndex);
+        $responseIndex->assertStatus(401);
+
+        $routeShow = route('breeds.show', $livestock);
+        $responseShow = $this->getJson($routeShow);
+        $responseShow->assertStatus(401);
+
+        $storePayload = [
+            'brand_number' => '785-895',
+            'name' => 'Juanito Alimaña'
+        ];
+        $routeStore = route('livestock.store');
+        $responseStore = $this->postJson($routeStore, $storePayload);
+        $responseStore->assertStatus(401);
+        $this->assertDatabaseMissing('livestock', [
+            'name' => 'Juanito Alimaña'
+        ]);
+
+
+        $updatePayload = [
+            'name' => 'Juanito Paisano'
+        ];
+        $routeUpdate = route('livestock.update', $livestock);
+        $responseUpdate = $this->putJson($routeUpdate, $updatePayload);
+        $responseUpdate->assertStatus(401);
+
+        $routeDestroy = route('livestock.destroy', $livestock);
+        $responseDestroy = $this->deleteJson($routeDestroy);
+        $responseDestroy->assertStatus(401);
+        $this->assertDatabaseMissing('livestock', [
+            'name' => 'Juanito Paisano'
         ]);
     }
 
