@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\BatchMovementController;
 use App\Http\Controllers\LivestockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +39,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('abort-types', AbortTypeController::class);
     Route::apiResource('birth-types', BirthTypeController::class);
     Route::apiResource('breeds', BreedController::class);
+    Route::apiResource('batches', BatchController::class);
+    Route::apiResource('batch-movements', BatchMovementController::class);
     Route::apiResource('classifications', ClassificationController::class);
     Route::apiResource('colors', ColorController::class);
     Route::apiResource('embrion-extraction-types', EmbrionExtractionTypeController::class);

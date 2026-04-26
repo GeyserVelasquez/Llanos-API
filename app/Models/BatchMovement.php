@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable(['batch_id', 'made_at', 'attributes', 'livestock_id'])]
 class BatchMovement extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $table = 'batch_movements';
 
