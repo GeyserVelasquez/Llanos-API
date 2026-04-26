@@ -1,6 +1,6 @@
 <?php
 
-namespace LookUp;
+namespace Tests\Feature\LookUp;
 
 use App\Models\MilkingType;
 use App\Models\User;

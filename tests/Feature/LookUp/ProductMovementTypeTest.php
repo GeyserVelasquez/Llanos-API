@@ -1,6 +1,6 @@
 <?php
 
-namespace LookUp;
+namespace Tests\Feature\LookUp;
 
 use App\Models\ProductMovementType;
 use App\Models\User;

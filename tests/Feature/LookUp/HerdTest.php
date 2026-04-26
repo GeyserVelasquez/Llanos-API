@@ -1,6 +1,6 @@
 <?php
 
-namespace LookUp;
+namespace Tests\Feature\LookUp;
 
 use App\Models\Herd;
 use App\Models\User;
@@ -121,23 +121,12 @@ class HerdTest extends TestCase
 
     public function test_users_cannot_create_a_new_herd_with_missing_parameters(): void
     {
-        // For herds, code and name are required in the migration but sometimes in StoreHerdRequest.
-        // Actually StoreBreedRequest says 'sometimes', 'required'.
-        // If I send empty payload, it should fail if they are required.
         $payload = [];
 
         $route = route('herds.store');
 
         $response = $this->actingAs($this->user)
              ->postJson($route, $payload);
-
-        // Based on BreedController:
-        // $data = $request->validate([
-        //     'code' => ['required', Rule::unique('breeds')],
-        //     $data = $request->validated();
-        // ]);
-        // Wait, BreedController.php store method uses manual validation instead of the request for 'code' and 'name'?
-        // Let me check BreedController again.
 
         $response->assertStatus(422);
     }
