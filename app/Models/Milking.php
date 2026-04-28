@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 ])]
 class Milking extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
 

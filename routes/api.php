@@ -15,6 +15,7 @@ use App\Http\Controllers\EntryCauseController;
 use App\Http\Controllers\ExtractionTypeController;
 use App\Http\Controllers\GrowthTypeController;
 use App\Http\Controllers\HerdController;
+use App\Http\Controllers\MilkingController;
 use App\Http\Controllers\MilkingTypeController;
 use App\Http\Controllers\NewbornTypeController;
 use App\Http\Controllers\OutcomeTypeController;
@@ -49,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('growth-types', GrowthTypeController::class);
     Route::apiResource('herds', HerdController::class);
     Route::apiResource('milking-types', MilkingTypeController::class);
+    Route::apiResource('milkings', MilkingController::class);
     Route::apiResource('livestock', LivestockController::class);
     Route::apiResource('newborn-types', NewbornTypeController::class);
     Route::apiResource('outcome-types', OutcomeTypeController::class);
