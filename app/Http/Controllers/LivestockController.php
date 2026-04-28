@@ -14,11 +14,15 @@ class LivestockController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $livestock = Livestock::all()->toResourceCollection();
+        $livestock = Livestock::included(
+            $request->query('include'))
+            ->paginate(15)
+            ->withQueryString();
 
-        return $livestock;
+        // (Mantengo tu toResourceCollection() que vi que tienes implementado)
+        return $livestock->toResourceCollection();
     }
 
     /**
@@ -36,10 +40,11 @@ class LivestockController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Livestock $livestock): LivestockResource
+    public function show(Request $request,Livestock $livestock): LivestockResource
     {
-        return (new LivestockResource($livestock));
-    }
+        $livestock->loadIncludes($request->query('include'));
+
+        return new LivestockResource($livestock);    }
 
     /**
      * Update the specified resource in storage.

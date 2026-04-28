@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\AnimalCategory;
 use App\Observers\LivestockObserver;
+use App\Traits\HasInclude;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,9 +26,15 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 #[ObservedBy([LivestockObserver::class])]
 class Livestock extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, HasInclude;
 
     protected $table = 'livestock';
+
+    protected array $allowIncludes = [
+        'entryCause', 'state', 'breed', 'color', 'classification', 'owner',
+        'technique', 'batch', 'father', 'mother', 'adoptiveMother',
+        'receivingMother', 'currentBatchMovement'
+    ];
 
     protected function casts(): array
     {
