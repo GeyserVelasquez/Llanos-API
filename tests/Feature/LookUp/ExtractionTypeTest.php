@@ -10,15 +10,6 @@ use Tests\TestCase;
 class ExtractionTypeTest extends TestCase
 {
 
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
-
     public function test_users_can_get_a_list_of_extraction_types(): void
     {
 

@@ -12,15 +12,6 @@ use App\Models\User;
 class LivestockTest extends TestCase
 {
 
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
-
     /**
      * A basic feature test example.
      */

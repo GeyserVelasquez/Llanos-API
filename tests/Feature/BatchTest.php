@@ -8,15 +8,6 @@ use Tests\TestCase;
 
 class BatchTest extends TestCase
 {
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
-
     public function testBasic()
     {
         $response = $this->get('/');

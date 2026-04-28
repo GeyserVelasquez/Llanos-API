@@ -11,15 +11,6 @@ class TechniqueTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
-
     public function test_users_can_get_a_list_of_techniques(): void
     {
         Technique::factory(3)->create();

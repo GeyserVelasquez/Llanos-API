@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Testing\TestResponse;
@@ -9,13 +10,17 @@ use Illuminate\Testing\TestResponse;
 abstract class TestCase extends BaseTestCase
 {
     use refreshDatabase;
+
     protected string $apiPrefix = '/api/v1';
+    protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->withHeader('Referer', 'http://localhost');
+
+        $this->user = User::factory()->create();
     }
 
     protected function buildApiUri(string $uri): string
