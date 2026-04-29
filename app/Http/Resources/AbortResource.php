@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MilkingResource extends JsonResource
+class AbortResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,13 +19,10 @@ class MilkingResource extends JsonResource
             'livestock_id' => $this->livestock_id,
             'technique_id' => $this->technique_id,
             'made_at' => $this->made_at->format('Y-m-d'),
-            'milking_type_id' => $this->milking_type_id,
-            'first_weight' => $this->first_weight,
-            'second_weight' => $this->second_weight,
-            'third_weight' => $this->third_weight,
+            'abort_type_id' => $this->abort_type_id,
             'livestock' => new LivestockResource($this->whenLoaded('livestock')),
+            'abort_type' => new MilkingTypeResource($this->whenLoaded('abortType')),
             'technique' => new TechniqueResource($this->whenLoaded('technique')),
-            'milking_type' => new MilkingTypeResource($this->whenLoaded('milkingType')),
         ];
     }
 }

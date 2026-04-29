@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['detected_at', 'description', 'livestock_id', 'technique_id'])]
+#[Fillable(['detected_at', 'livestock_id', 'technique_id'])]
 class Teasing extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
     protected function casts(): array

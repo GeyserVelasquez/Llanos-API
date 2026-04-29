@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AbortController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BatchMovementController;
 use App\Http\Controllers\LivestockController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbortTypeController;
 use App\Http\Controllers\BirthTypeController;
 use App\Http\Controllers\BreedController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\RevisionTypeController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\SupplyTypeController;
+use App\Http\Controllers\TeasingController;
 use App\Http\Controllers\TechniqueController;
 
 require __DIR__.'/auth.php';
@@ -37,6 +40,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
+    Route::apiResource('aborts', AbortController::class);
     Route::apiResource('abort-types', AbortTypeController::class);
     Route::apiResource('birth-types', BirthTypeController::class);
     Route::apiResource('breeds', BreedController::class);
@@ -63,5 +67,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('states', StateController::class);
     Route::apiResource('supply-types', SupplyTypeController::class);
     Route::apiResource('techniques', TechniqueController::class);
+    Route::apiResource('teasings', TeasingController::class);
 
 });

@@ -19,9 +19,9 @@ return new class extends Migration
             $table->morphs('growthable');
             $table->foreignId('growth_type_id')->constrained();
             $table->foreignId('livestock_id')->constrained('livestock');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
-
         });
     }
 

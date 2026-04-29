@@ -15,8 +15,6 @@ class Extraction extends Model
 {
     use SoftDeletes;
 
-
-
     protected function casts(): array
     {
         return [

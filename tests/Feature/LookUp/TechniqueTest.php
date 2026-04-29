@@ -103,11 +103,7 @@ class TechniqueTest extends TestCase
 
     public function test_users_can_create_a_new_technique(): void
     {
-        $payload = [
-            'code' => 'T1',
-            'name' => 'Technique One',
-            'telephone' => '123456789'
-        ];
+        $payload = Technique::factory()->raw();
 
         $route = route('techniques.store');
 
@@ -162,11 +158,7 @@ class TechniqueTest extends TestCase
     {
         $technique = Technique::factory()->create();
 
-        $payload = [
-            'code' => 'T2',
-            'name' => 'Technique Two Updated',
-            'telephone' => '987654321'
-        ];
+        $payload = Technique::factory()->raw();
 
         $route = route('techniques.update', $technique);
 
@@ -176,7 +168,7 @@ class TechniqueTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertDatabaseHas('techniques', [
-            'code' => 'T2'
+            'code' => $payload['code']
         ]);
     }
 

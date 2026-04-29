@@ -2,19 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\Abort;
+use App\Models\AbortType;
 use App\Models\Livestock;
-use App\Models\Milking;
-use App\Models\MilkingType;
 use App\Models\Technique;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Milking>
+ * @extends Factory<Abort>
  */
-class MilkingFactory extends Factory
+class AbortFactory extends Factory
 {
-    protected $model = Milking::class;
-
     /**
      * Define the model's default state.
      *
@@ -24,12 +22,9 @@ class MilkingFactory extends Factory
     {
         return [
             'livestock_id' => Livestock::factory(),
-            'milking_type_id' => MilkingType::factory(),
             'technique_id' => Technique::factory(),
+            'abort_type_id' => AbortType::factory(),
             'made_at' => $this->faker->date(),
-            'first_weight' => $this->faker->randomFloat(2, 5, 20),
-            'second_weight' => $this->faker->randomFloat(2, 5, 20),
-            'third_weight' => $this->faker->randomFloat(2, 5, 20),
         ];
     }
 }

@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['made_at', 'abort_type_id', 'livestock_id'])]
+#[Fillable(['made_at', 'abort_type_id', 'livestock_id', 'technique_id'])]
 class Abort extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
 
@@ -32,4 +32,10 @@ class Abort extends Model
     {
         return $this->belongsTo(Livestock::class);
     }
+
+    public function technique(): BelongsTo
+    {
+        return $this->belongsTo(Technique::class);
+    }
+
 }
