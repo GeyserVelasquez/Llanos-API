@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->decimal('quantity');
+            $table->json('attributes')->nullable();
             $table->foreignId('supply_type_id')->constrained();
             $table->softDeletes();
             $table->timestamps();

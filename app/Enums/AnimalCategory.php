@@ -9,7 +9,6 @@ enum AnimalCategory: string
     case MALE_YEARLING = 'male_yearling';
     case MALE_CALF = 'bull_calf';
 
-    // Hembras
     case COW = 'cow';
     case HEIFER = 'heifer';
     case FEMALE_YEARLING = 'female_yearling';
