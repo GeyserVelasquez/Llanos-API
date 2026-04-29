@@ -3,11 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Livestock;
-use Database\Factories\LivestockFactory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\User;
 
 class LivestockTest extends TestCase
 {

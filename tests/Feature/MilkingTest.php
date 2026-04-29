@@ -28,6 +28,7 @@ class MilkingTest extends TestCase
                 '*' => [
                     'id',
                     'livestock_id',
+                    'technique_id',
                     'made_at',
                     'milking_type_id',
                     'first_weight',
@@ -53,6 +54,7 @@ class MilkingTest extends TestCase
             'livestock_id' => $milking->livestock_id,
             'made_at' => $milking->made_at->format('Y-m-d'),
             'milking_type_id' => $milking->milking_type_id,
+            'technique_id' => $milking->technique_id,
             'first_weight' => number_format($milking->first_weight, 2, '.', ''),
             'second_weight' => number_format($milking->second_weight, 2, '.', ''),
             'third_weight' => number_format($milking->third_weight, 2, '.', ''),
@@ -62,6 +64,7 @@ class MilkingTest extends TestCase
             'data' => [
                 'id',
                 'livestock_id',
+                'technique_id',
                 'made_at',
                 'milking_type_id',
                 'first_weight',

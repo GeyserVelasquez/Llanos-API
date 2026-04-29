@@ -24,7 +24,6 @@ class LivestockEventSeeder extends Seeder
         $technique = Technique::first();
         $result = Result::where('code', 'POSITIVE')->first();
         $revisionType = RevisionType::where('code', 'GENERAL')->first();
-        $reproRevisionType = RevisionType::where('code', 'REPRODUCTIVE')->first();
 
         // batch_movements
         BatchMovement::create([
@@ -48,16 +47,6 @@ class LivestockEventSeeder extends Seeder
             'livestock_id' => $livestock->id,
             'technique_id' => $technique->id,
             'detected_at' => now(),
-            'description' => 'Presenta celo',
-        ]);
-
-        // reproductive_diagnostics (converted to revision)
-        Revision::create([
-            'livestock_id' => $livestock->id,
-            'result_id' => $result->id,
-            'made_at' => now(),
-            'revision_type_id' => $reproRevisionType->id,
-            'technique_id' => $technique->id,
         ]);
     }
 }
