@@ -1,6 +1,6 @@
 <?php
 
-namespace LookUp;
+namespace Tests\Feature\LookUp;
 
 use App\Models\Breed;
 use App\Models\User;
@@ -9,21 +9,11 @@ use Tests\TestCase;
 
 class BreedTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
 
     public function test_users_can_get_a_list_of_breeds(): void
     {
 
-        Breed::factory(3)->create();
+        $breeds = Breed::factory(3)->create();
 
         $route = route('breeds.index');
 
@@ -35,8 +25,8 @@ class BreedTest extends TestCase
         $response->assertJsonCount(3, 'data');
 
         $response->assertJsonFragment([
-            'code' => 'BR',
-            'name' => 'Brahman'
+            'code' => $breeds->first()->code,
+            'name' => $breeds->first()->name,
         ]);
 
         $response->assertJsonStructure([
@@ -129,7 +119,7 @@ class BreedTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('breeds', [
-            'code' => 'HO'
+            'code' => $payload['code']
         ]);
     }
 

@@ -14,14 +14,10 @@ return new class extends Migration
         Schema::create('births', function (Blueprint $table) {
             $table->id();
             $table->foreignId('mother_id')->constrained('livestock');
-            $table->decimal('mother_weight');
             $table->date('birth_date');
             $table->date('postbirth_revision_date');
             $table->foreignId('birth_type_id')->constrained();
-            $table->foreignId('technique_id')->constrained();
-            $table->text('comment')->nullable();
-            $table->date('deceased_at')->nullable();
-            $table->tinyInteger('is_active');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
 

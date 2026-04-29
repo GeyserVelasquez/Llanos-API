@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-#[Fillable(['code', 'name', 'unit_price', 'attributes', 'product_type_id'])]
+#[Fillable(['code', 'name','description', 'attributes', 'product_type_id'])]
 class Product extends Model
 {
     use SoftDeletes;

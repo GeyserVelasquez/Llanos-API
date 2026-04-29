@@ -8,20 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use LaravelLang\Publisher\Concerns\Has;
 
-#[Fillable(['name', 'path', 'comment', 'is_active', 'type_id', 'livestock_id'])]
+#[Fillable(['name', 'path', 'description', 'livestock_id'])]
 class Image extends Model
 {
-    use SoftDeletes;
-
-
-
-    protected function casts(): array
-    {
-        return [
-            'is_active' => 'integer',
-        ];
-    }
+    use SoftDeletes, HasFactory;
 
     public function livestock(): BelongsTo
     {

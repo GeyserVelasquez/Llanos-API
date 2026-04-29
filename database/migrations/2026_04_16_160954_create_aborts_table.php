@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('aborts', function (Blueprint $table) {
             $table->id();
-
-            $table->date('date');
-            $table->foreignId('mother_history_id')->constrained('clinic_histories');
+            $table->foreignId('livestock_id')->constrained('livestock');
+            $table->date('made_at');
             $table->foreignId('abort_type_id')->constrained();
-            $table->text('comment')->nullable();
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 

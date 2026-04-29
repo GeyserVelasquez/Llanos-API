@@ -10,20 +10,19 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
-    'date', 'milking_type_id', 'morning_weight', 'afternoon_weight',
-    'total_weight', 'mother_history_id', 'is_active', 'livestock_id'
+    'made_at', 'milking_type_id', 'first_weight', 'second_weight',
+    'third_weight', 'livestock_id', 'technique_id'
 ])]
 class Milking extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
 
     protected function casts(): array
     {
         return [
-            'date' => 'date',
-            'is_active' => 'integer',
+            'made_at' => 'date',
         ];
     }
 
@@ -32,13 +31,13 @@ class Milking extends Model
         return $this->belongsTo(MilkingType::class);
     }
 
-    public function motherHistory(): BelongsTo
-    {
-        return $this->belongsTo(ClinicHistory::class, 'mother_history_id');
-    }
-
     public function livestock(): BelongsTo
     {
         return $this->belongsTo(Livestock::class);
+    }
+
+    public function technique(): BelongsTo
+    {
+        return $this->belongsTo(Technique::class);
     }
 }

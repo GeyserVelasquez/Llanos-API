@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Breed\UpdateBreedRequest;
+use App\Http\Requests\Livestock\StoreLivestockRequest;
+use App\Http\Requests\Livestock\UpdateLivestockRequest;
+use App\Http\Resources\LivestockResource;
+use App\Models\Livestock;
+use Illuminate\Http\Request;
+
+class LivestockController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $livestock = Livestock::included(
+            $request->query('include'))
+            ->paginate(15)
+            ->withQueryString();
+
+        // (Mantengo tu toResourceCollection() que vi que tienes implementado)
+        return $livestock->toResourceCollection();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreLivestockRequest $request): LivestockResource
+    {
+        $data = $request->validated();
+
+        $livestock = Livestock::create($data);
+
+        return (new LivestockResource($livestock));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Request $request,Livestock $livestock): LivestockResource
+    {
+        $livestock->loadIncludes($request->query('include'));
+
+        return new LivestockResource($livestock);    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateLivestockRequest $request, Livestock $livestock): LivestockResource
+    {
+        $data = $request->validated();
+
+        $livestock->update($data);
+
+        return (new LivestockResource($livestock));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Livestock $livestock)
+    {
+        $livestock->delete();
+
+        return response(null, 204);
+    }
+}

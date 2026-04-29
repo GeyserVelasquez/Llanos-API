@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-#[Fillable(['certificate_number', 'issue_date', 'expiry_date', 'is_active'])]
+#[Fillable(['certificate_number', 'issue_date', 'expiry_date', 'file_path'])]
 class Certificate extends Model
 {
     use SoftDeletes;
@@ -19,7 +19,6 @@ class Certificate extends Model
         return [
             'issue_date' => 'date',
             'expiry_date' => 'date',
-            'is_active' => 'integer',
         ];
     }
 

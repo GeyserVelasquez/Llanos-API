@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RevisionResult;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +15,10 @@ return new class extends Migration
         Schema::create('revisions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('livestock_id')->constrained('livestock');
-            $table->date('date_at');
-            $table->text('comment')->nullable();
-            $table->foreignId('result_id')->constrained('results');
+            $table->date('made_at');
+            $table->enum('revision_result', RevisionResult::cases());
             $table->foreignId('revision_type_id')->constrained('revision_types');
-            $table->foreignId('technique_id')->constrained('techniques');
+            $table->foreignId('technique_id')->nullable()->constrained()->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
 

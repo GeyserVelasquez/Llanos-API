@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['birth_id', 'newborn_type_id', 'newborn_weight', 'livestock_id'])]
+#[Fillable(['birth_id', 'newborn_type_id', 'livestock_id'])]
 class Newborn extends Model
 {
     use SoftDeletes;

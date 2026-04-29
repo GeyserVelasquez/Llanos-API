@@ -14,8 +14,6 @@ class OutcomeType extends Model
 {
     use SoftDeletes,HasFactory;
 
-
-
     public function outcomes(): HasMany
     {
         return $this->hasMany(Outcome::class);

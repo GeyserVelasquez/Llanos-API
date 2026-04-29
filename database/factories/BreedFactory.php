@@ -17,8 +17,8 @@ class BreedFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->unique()->randomElement(['Brahman', 'Angus', 'GYR']);
-        $code = mb_strtoupper(mb_substr($name, 0, 2));
+        $name = $this->faker->word();
+        $code = $this->faker->unique()->bothify('###-###');
 
         return [
             'code' => $code,

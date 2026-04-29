@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,23 +15,26 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 #[Fillable(['code', 'name', 'herd_id'])]
 class Batch extends Model
 {
-    use SoftDeletes;
-
-
+    use SoftDeletes, HasFactory;
 
     public function herd(): BelongsTo
     {
         return $this->belongsTo(Herd::class);
     }
 
-    public function livestock(): HasMany
+    public function livestock(): BelongsToMany
     {
-        return $this->hasMany(Livestock::class);
+        return $this->belongsToMany(Livestock::class);
     }
 
-    public function movementsInLots(): HasMany
+    public function batchMovements(): BelongsTo
     {
-        return $this->hasMany(MovementInLot::class);
+        return $this->belongsTo(BatchMovement::class);
+    }
+
+    public function batchMovement(): HasMany
+    {
+        return $this->hasMany(BatchMovement::class);
     }
 
     public function extractions(): MorphMany

@@ -1,6 +1,6 @@
 <?php
 
-namespace LookUp;
+    namespace Tests\Feature\LookUp;
 
 use App\Models\AbortType;
 use App\Models\User;
@@ -9,17 +9,6 @@ use Tests\TestCase;
 
 class AbortTypeTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
-
     public function test_users_can_get_a_list_of_abort_types(): void
     {
         AbortType::factory(3)->create();
@@ -169,3 +158,4 @@ class AbortTypeTest extends TestCase
         $response->assertStatus(404);
     }
 }
+

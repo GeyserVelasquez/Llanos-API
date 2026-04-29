@@ -1,6 +1,6 @@
 <?php
 
-namespace LookUp;
+namespace Tests\Feature\LookUp;
 
 use App\Models\Result;
 use App\Models\User;
@@ -9,16 +9,6 @@ use Tests\TestCase;
 
 class ResultTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected User $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
 
     public function test_users_can_get_a_list_of_results(): void
     {

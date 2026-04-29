@@ -8,7 +8,6 @@ use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
 
     public function test_guest_cannot_register_new_user(): void
     {
@@ -33,7 +32,7 @@ class RegistrationTest extends TestCase
         $response = $this->actingAs($admin)
             ->postJson('/register', [
                 'name' => 'New Veterinarian',
-                'email' => 'vet@finca.com',
+                'email' => 'vet@llanos.com',
                 'password' => 'password',
                 'password_confirmation' => 'password',
             ]);
@@ -41,7 +40,7 @@ class RegistrationTest extends TestCase
         $response->assertStatus(204);
 
         $this->assertDatabaseHas('users', [
-            'email' => 'vet@finca.com'
+            'email' => 'vet@llanos.com'
         ]);
     }
 }

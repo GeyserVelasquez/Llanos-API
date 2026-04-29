@@ -9,23 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['date', 'mother_history_id', 'abort_type_id', 'comment', 'livestock_id'])]
+#[Fillable(['made_at', 'abort_type_id', 'livestock_id', 'technique_id'])]
 class Abort extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
 
 
     protected function casts(): array
     {
         return [
-            'date' => 'date',
+            'made_at' => 'date',
         ];
-    }
-
-    public function motherHistory(): BelongsTo
-    {
-        return $this->belongsTo(ClinicHistory::class, 'mother_history_id');
     }
 
     public function abortType(): BelongsTo
@@ -37,4 +32,10 @@ class Abort extends Model
     {
         return $this->belongsTo(Livestock::class);
     }
+
+    public function technique(): BelongsTo
+    {
+        return $this->belongsTo(Technique::class);
+    }
+
 }

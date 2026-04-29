@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('outcomes', function (Blueprint $table) {
             $table->id();
-
-            $table->date('date');
+            $table->date('made_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->text('description')->nullable();
             $table->foreignId('outcome_type_id')->constrained();
-            $table->text('comment')->nullable();
-            $table->decimal('amount');
+            $table->foreignId('livestock_id')->constrained('livestock');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 

@@ -14,13 +14,10 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-
-            $table->date('date_at');
-            $table->tinyInteger('is_active');
+            $table->foreignId('livestock_id')->constrained('livestock');
+            $table->morphs('commentable');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreignId('livestock_id')->constrained('livestock');
         });
     }
 

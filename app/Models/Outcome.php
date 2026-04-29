@@ -9,18 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['date', 'outcome_type_id', 'comment', 'amount', 'livestock_id'])]
+#[Fillable(['made_at', 'outcome_type_id', 'description', 'livestock_id'])]
 class Outcome extends Model
 {
     use SoftDeletes;
 
-
-
     protected function casts(): array
     {
         return [
-            'date' => 'date',
-            'amount' => 'decimal:2',
+            'made_at' => 'date',
         ];
     }
 
